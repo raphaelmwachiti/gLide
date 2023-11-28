@@ -62,14 +62,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#DDD',
     borderRadius: 5,
+    marginTop: 60, 
+    backgroundColor: '#DDD'
+    
   },
   segmentButton: {
     flex: 1,
     padding: 10,
     alignItems: 'center',
+    margin: 3, 
+    
   },
   segmentButtonActive: {
-    backgroundColor: '#DDD',
+    backgroundColor: '#fff',
   },
   segmentButtonText: {
     fontSize: 16,

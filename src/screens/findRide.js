@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function FindRide() {
   const rides = [
@@ -9,7 +9,7 @@ export default function FindRide() {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput placeholder="Your location" style={styles.input} />
         <TouchableOpacity onPress={() => {}}>
@@ -22,7 +22,7 @@ export default function FindRide() {
        
       </View>
       
-      <ScrollView style={styles.rideListContainer}>
+      <ScrollView style={styles.rideListContainer} contentContainerStyle={styles.scrollViewContent}>
         {rides.map((ride) => (
           <View key={ride.id} style={styles.rideCard}>
             <Text style={styles.rideName}>{ride.name} - {ride.price}</Text>
@@ -38,7 +38,7 @@ export default function FindRide() {
       <TouchableOpacity style={styles.safetyTipsButton}>
         <Text style={styles.buttonText}>Safety Tips</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#FFF', 
     },
+    scrollViewContent: {
+        paddingBottom: 80, 
+      },
     searchContainer: {
       padding: 20, 
     },
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
       marginBottom: 10, 
     },
     buttonText: {
-      color: 'blue', 
+      color: '#fff', 
       textAlign: 'center',
     },
     filterContainer: {
@@ -73,26 +76,35 @@ const styles = StyleSheet.create({
       marginTop: 10, 
     },
     rideCard: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: 20,
       borderBottomWidth: 1,
       borderBottomColor: '#EEE', 
+      backgroundColor: '#FAFAFA',
+      marginVertical: 8,
+      borderWidth: 1,
+      borderColor: '#DDD', 
+      borderRadius: 10, 
       backgroundColor: '#FAFAFA', 
     },
     rideName: {
       fontWeight: 'bold',
+      marginBottom: 5, 
     },
     rideDetail: {
       color: '#666', 
+      marginBottom: 10
     },
     button: {
-      backgroundColor: '#FFD700', 
+      backgroundColor: '#21d111', 
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 5,
+      alignSelf: 'flex-start', 
     },
+
     safetyTipsButton: {
       padding: 20,
       backgroundColor: '#DDDDDD', 
