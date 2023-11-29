@@ -41,7 +41,7 @@ export default function FindRide({ navigation }) {
                     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ReviewRideScreen')}>
                         <Text style={styles.buttonText}>Review</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConfirmationScreen')}>
                     <Text style={styles.buttonText}>Book</Text>
                     </TouchableOpacity>
                 </View>

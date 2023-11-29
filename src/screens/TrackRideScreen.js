@@ -1,14 +1,20 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import MapView from 'react-native-maps';
 
-const ConfirmationScreen = ({ navigation }) => {
+const TrackRideScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
-        <Image
-            source={require('../assets/confirm.jpg')} 
-            style={styles.confirmationImage}
-            />
-        <Text style={styles.confirmationText}>Your ride has been confirmed</Text>
+        <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+
+      />
 
       <View style={styles.card}>
         <Text style={styles.titleText}> Ride details</Text>
@@ -26,22 +32,27 @@ const ConfirmationScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <Text style={styles.aboutTitle}>About</Text>
-        <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
+        <Text style={styles.aboutTitle}>Live updates</Text>
+        <Text style={styles.aboutDetail}> - Appears to be heavy traffic</Text>
+        <Text style={styles.aboutDetail}> - Messi is rerouting</Text>
         <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
-        <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
+        <Text style={styles.aboutDetail}> - His car is bright Pink and should have green rims </Text>
+        <Text style={styles.aboutDetail}> - Be mindful of your ride </Text>
         <Text style={styles.aboutDetail}> - Call 911 us you feel unsafe and contact support</Text>
        
 
         <View style={styles.buttonContainer}>
-            {/* on click the share button should show on screeen pop up asking for phone number and email of desired reciept */}
-          <TouchableOpacity style={styles.shareButton} >
-            <Text style={styles.buttonText}> Share ride details with family or freind</Text>
+          <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
+            <Text style={styles.buttonText}> Cancel Glide (5:03)</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
-            <Text style={styles.buttonText}> Proceed to track your ride</Text>
+          <TouchableOpacity style={styles.trackButton} onPress={() => {}}>
+            <Text style={styles.buttonText}> Talk to driver </Text>
           </TouchableOpacity>
-        </View>
+        </View> 
+
+        <TouchableOpacity style={styles.shareButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
+            <Text style={styles.buttonText}>Share live location and ride details</Text>
+          </TouchableOpacity>
 
         <TouchableOpacity style={styles.safetyTipsButton}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
@@ -57,6 +68,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff', 
+  }, 
+  map: {
+    height: 250, 
+    width: '100%',
+    marginBottom: 20, 
   },
   card: {
     backgroundColor: '#f0f0f0', 
@@ -116,7 +132,7 @@ const styles = StyleSheet.create({
   aboutTitle: {
     alignSelf: 'flex-start',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 14,
     marginTop: 20,
   },
   aboutDetail: {
@@ -125,16 +141,26 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   buttonContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginTop: 20,
     width: '100%',
     justifyContent: 'space-around',
   },
+  cancelButton: {
+    backgroundColor: '#000', 
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10, 
+    marginRight: 20, 
+  }, 
   shareButton: {
     backgroundColor: '#000', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    marginTop: 10, 
+    marginRight: 10, 
   },
   trackButton: {
     backgroundColor: '#21d111', 
@@ -158,4 +184,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default ConfirmationScreen;
+export default TrackRideScreen;

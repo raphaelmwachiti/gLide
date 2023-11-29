@@ -1,59 +1,88 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, Image} from 'react-native';
 
 const DriverScreen = () => {
-  // Replace with your state management and data fetching logic
   const rides = [
-    // Sample data structure
     {
       id: 1,
       from: 'home',
       to: 'UBCO',
       time: '11:11 am',
       price: '5.787$',
-      status: 'in-progress', // could be 'in-progress', 'pending', or 'requested'
+      status: 'in-progress', 
       passengerLimit: 4,
-    },
-    // ... more rides
+    }, 
+    {
+        id: 2,
+        from: 'Coscto',
+        to: 'Downtown',
+        time: '11:11 am',
+        price: '5.787$',
+        status: 'pending', 
+        passengerLimit: 4,
+    }, 
+    {
+        id: 3,
+        from: 'Coscto',
+        to: 'Downtown',
+        time: '11:11 am',
+        price: '5.787$',
+        status: 'pending', 
+        passengerLimit: 4,
+    }, 
+    
+    
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.tabContainer}>
-        {/* Tab buttons will go here if you're not using a library like react-navigation */}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.searchContainer}>
+        <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <Text style={styles.buttonText}>Add Stop</Text>
+        </TouchableOpacity>
       </View>
-      <ScrollView style={styles.scrollView}>
-        {rides.map((ride) => (
-          <View key={ride.id} style={styles.rideContainer}>
-            <View style={styles.rideDetails}>
-              <Text style={styles.rideText}>From: {ride.from}</Text>
-              <Text style={styles.rideText}>To: {ride.to}</Text>
-              <Text style={styles.rideText}>Time: {ride.time}</Text>
-              <Text style={styles.rideText}>Passenger (limit): {ride.passengerLimit}</Text>
-              <Text style={styles.priceText}>{ride.price}</Text>
-              <Text style={styles.statusText}>{ride.status}</Text>
-            </View>
-            <View style={styles.buttonGroup}>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Review</Text>
-              </TouchableOpacity>
-              {ride.status === 'requested' && (
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.buttonText}>Accept</Text>
+      
+      <View> 
+        <Text style ={{ paddingLeft:10, fontWeight: 'bold', textDecorationLine: 'underline', marginTop: 10,}} > Rides that you posted  </Text>
+      </View>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
+      {rides.map((ride) => (
+        <View key={ride.id} style={styles.rideContainer}>
+            <View style={styles.row1}> 
+                <View style={styles.rideDetails}>
+                    <Text style={styles.rideText}>From: {ride.from}</Text>
+                    <Text style={styles.rideText}>To: {ride.to}</Text>
+                    <Text style={styles.rideText}>Time: {ride.time}</Text>
+                    <Text style={styles.rideText}>Passenger (limit): {ride.passengerLimit}</Text>
+                </View>
+                <View style = {styles.rightCln}> 
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
+                            <Text style={styles.buttonText}>{ride.status}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.trackButton} onPress={() => {}}>
+                            <Text style={styles.buttonText}> review </Text>
+                        </TouchableOpacity>
+                    </View> 
+                    <View style={styles.statusPriceContainer}>
+                        <Text style={styles.priceText}>{ride.price}</Text>
+                    </View>
+                </View>
+            </View>    
+            {/* make button dynamic depending on status */}
+                <TouchableOpacity style={styles.shareButton}>
+                    <Text style={styles.buttonText}>Accepted</Text>
                 </TouchableOpacity>
-              )}
-              {/* Other buttons based on status */}
-            </View>
-          </View>
+          
+        </View>
         ))}
+    
       </ScrollView>
-      <TouchableOpacity style={styles.addButton}>
+
+      <TouchableOpacity style={styles.shareButton} onPress={() => {}}>
         <Text style={styles.buttonText}>Add Ride</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.safetyButton}>
-        <Text style={styles.buttonText}>Safety tips</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -61,54 +90,108 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 70,
   },
   tabContainer: {
     flexDirection: 'row',
  
   },
   scrollView: {
- 
+    marginHorizontal: 5
   },
-  rideContainer: {
-    backgroundColor: '#f0f0f0',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
-  
-  },
-  rideDetails: {
+  row1: {
+    flexDirection: 'row', 
 
   },
-  rideText: {
-    fontSize: 16,
-    marginBottom: 4,
+  rightCln: {
+    flexDirection: 'column', 
 
-  },
-  priceText: {
-    fontSize: 18,
-    fontWeight: 'bold',
- 
-  },
-  statusText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  buttonGroup: {
+  }, 
+  buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
+    justifyContent: 'space-around',
   },
-  button: {
+  cancelButton: {
+    backgroundColor: '#000', 
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5, 
+    marginRight: 5, 
+  }, 
+  shareButton: {
+    backgroundColor: '#21d111', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    marginTop: 10, 
+    marginRight: 10, 
+    width: '80%',
+    alignItems: 'center'
+  }, 
+ 
+  trackButton: {
     backgroundColor: '#21d111', 
-  
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+
+  rideContainer: {
+    backgroundColor: '#f2f2f2', 
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 8,
+    flexDirection: 'column', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginHorizontal: 10, 
+    marginVertical: 10,
+  },
+  rideDetails: {
+    justifyContent: 'center',
+  },
+  rideText: {
+    fontSize: 16,
+    color: '#333', 
+  },
+  priceText: {
+    backgroundColor: '#ddd',
+    borderRadius: 4,
+    padding: 8,
+    width: '90%',
+    alignItems: 'center',
+    color: '#333',
+    fontWeight: 'bold',
+  },
+  statusPriceContainer: {
+    alignItems: 'center',
+    marginTop: 7, 
+    justifyContent: 'space-between',
+    width: '80%' ,
+    paddingHorizontal: 12,
+  },
+  statusText: {
+    backgroundColor: '#ddd', 
+    borderRadius: 4,
+    padding: 4,
+    color: '#333',
+    fontWeight: 'bold',
+  },
+  buttonGroup: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#21d111', 
+    borderRadius: 4,
+    padding: 8,
+    marginHorizontal: 4, 
   },
   buttonText: {
-    color: '#FFF',
-    textAlign: 'center',
+    color: '#fff', 
+    fontWeight: 'bold',
   },
   addButton: {
     position: 'absolute',
@@ -120,6 +203,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10, 
     alignSelf: 'center',
+  },
+  safetyTipsButton: {
+    padding: 20,
+    backgroundColor: '#DDDDDD', 
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    textAlign: 'center', 
   },
 });
 
