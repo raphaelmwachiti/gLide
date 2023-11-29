@@ -4,10 +4,14 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'r
 const ConfirmationScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
-        <Text style={styles.safetyText}>We prioritize your safety. Please review terms of use.</Text>
+        <Image
+            source={require('../assets/confirm.jpg')} 
+            style={styles.confirmationImage}
+            />
+        <Text style={styles.confirmationText}>Your ride has been confirmed</Text>
 
       <View style={styles.card}>
-
+        <Text style={styles.titleText}> Ride details</Text>
         <View style={styles.profileInfo}> 
           <View style={styles.profileImgClmn}>
             <Image
@@ -16,44 +20,25 @@ const ConfirmationScreen = ({ navigation }) => {
             />
           </View>
           <View style={styles.profileDetailClmn}> 
-            <Text style={styles.profileName}>Messi Leo GOAT</Text>
-            <Text style={styles.profileDetail}>27 years old</Text>
-            <Text style={styles.profileDetail}>Glides completed - 2002</Text>
+            <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
+            <Text style={styles.profileDetail}>Messi Leo Goat</Text>
+            <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
           </View>
         </View>
 
         <Text style={styles.aboutTitle}>About</Text>
-        <Text style={styles.aboutDetail}> - Messi glides as full time job</Text>
-        <Text style={styles.aboutDetail}> - On weekends Messi plays soccrer for man united </Text>
-        <Text style={styles.aboutDetail}> - Messi has been driving for 25 years 4 days and 69 minutes </Text>
-        <Text style={styles.aboutDetail}> - Messi has been vetted by our team through interviews and background check</Text>
-
-        <Text style={styles.reviewsTitle}>Reviews - 2/7 (add star emoji)</Text>
-        <View style={styles.reviewsCard}> 
-          <View style={styles.reviewPicClmn} >
-          <Image
-            source={require('../assets/pp.jpg')} 
-            style={styles.reviewProfileImage}
-            />
-          </View>  
-          <View style={styles.reviewDetailClmn} >
-            <Text> 
-              He has the most amazing stories about his time playing football. 
-            </Text>
-          </View> 
-          <View style={styles.reviewRatingClmn} >
-            <Text> 2/7 (add star emoji)</Text>
-          
-          </View> 
-
-        </View>
+        <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
+        <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
+        <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
+        <Text style={styles.aboutDetail}> - Call 911 us you feel unsafe and contact support</Text>
+       
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
-            <Text style={styles.buttonText}>Back to search</Text>
+            <Text style={styles.buttonText}> Share ride details with family or freind</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.bookButton} onPress={() => {}}>
-            <Text style={styles.buttonText}>Book (0:53)</Text>
+          <TouchableOpacity style={styles.trackButton} onPress={() => {}}>
+            <Text style={styles.buttonText}> Proceed to track your ride</Text>
           </TouchableOpacity>
         </View>
 
@@ -80,13 +65,26 @@ const styles = StyleSheet.create({
     width: '90%',
     maxWidth: 600, 
   },
-  safetyText: {
+  confirmationImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 60,
+    marginBottom: 10,
+  },
+  confirmationText: {
     marginBottom: 20,
+    textAlign: 'center',
+    color: '#333',
+    fontSize: 20,
+    fontWeight: 'bold',
+  }, 
+  titleText: { 
+    marginBottom: 10,
     textAlign: 'center',
     color: '#333',
     fontWeight: 'bold',
     textDecorationLine: 'underline'
-  }, 
+  },
   profileInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -94,20 +92,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 6, 
   },
   profileImgClmn: { 
-    width: '30%'
+    width: '20%'
   }, 
   profileDetailClmn: {
     width: '70%'
   },
   profileImage: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     borderRadius: 60,
-    marginBottom: 10,
+    marginLeft: -20
   },
   profileName: {
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 4,
   },
   profileDetail: {
@@ -125,39 +123,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 4,
   },
-  reviewsTitle: {
-    alignSelf: 'flex-start',
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginTop: 20,
-  },
-  reviewsCard: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginHorizontal:10,
-    marginVertical: 10,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 5,
-  },
-  reviewPicClmn: {
-    width: '20%', 
-  }, 
-  reviewDetailClmn: {
-    width: '70%'
-  },
-  reviewRatingClmn: {
-    width: '15%'
-  },  
-  reviewProfileImage: {
-    width: 45,
-    height: 45,
-    borderRadius: 60,
-
-  },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginTop: 20,
     width: '100%',
     justifyContent: 'space-around',
@@ -168,11 +135,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
   },
-  bookButton: {
+  trackButton: {
     backgroundColor: '#21d111', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    marginTop: 10, 
   },
   buttonText: {
     color: '#fff',
