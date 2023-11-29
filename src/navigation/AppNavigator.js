@@ -8,6 +8,8 @@ import DriverScreen from '../screens/DriverScreen'
 import ReviewRideScreen from '../screens/ReviewRideScreen'
 import ConfirmationScreen from '../screens/ConfirmationScreen'
 import TrackRideScreen from '../screens/TrackRideScreen'
+import AddEditRideScreen from '../screens/AddEditRideScreen'
+import RideRequestScreen from '../screens/RideRequestScreen '
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -47,6 +49,16 @@ function AppNavigator() {
       <Stack.Screen 
         name="TrackRideScreen" 
         component={TrackRideScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="AddEditRideScreen" 
+        component={AddEditRideScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="RideRequestScreen" 
+        component={RideRequestScreen}
         options={{ headerShown: false }}
       />
     

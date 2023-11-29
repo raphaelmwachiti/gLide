@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, Image} from 'react-native';
 
-const DriverScreen = () => {
+const DriverScreen = ({ navigation }) => {
   const rides = [
     {
       id: 1,
@@ -21,16 +21,6 @@ const DriverScreen = () => {
         status: 'pending', 
         passengerLimit: 4,
     }, 
-    {
-        id: 3,
-        from: 'Coscto',
-        to: 'Downtown',
-        time: '11:11 am',
-        price: '5.787$',
-        status: 'pending', 
-        passengerLimit: 4,
-    }, 
-    
     
   ];
 
@@ -60,7 +50,7 @@ const DriverScreen = () => {
                 </View>
                 <View style = {styles.rightCln}> 
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
+                        <TouchableOpacity style={[styles.cancelButton, {backgroundColor: '#6b6a6a'}]} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
                             <Text style={styles.buttonText}>{ride.status}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.trackButton} onPress={() => {}}>
@@ -73,16 +63,45 @@ const DriverScreen = () => {
                 </View>
             </View>    
             {/* make button dynamic depending on status */}
-                <TouchableOpacity style={styles.shareButton}>
-                    <Text style={styles.buttonText}>Accepted</Text>
+                <TouchableOpacity style={styles.shareButton} onPress={() => navigation.navigate('AddEditRideScreen')}>
+                    <Text style={styles.buttonText}>Review requests (3) </Text>
                 </TouchableOpacity>
           
         </View>
-        ))}
+        ))} 
+
+        <View style={styles.rideContainer}>
+            <View style={styles.row1}> 
+                <View style={styles.rideDetails}>
+                    <Text style={styles.rideText}>From: Canada</Text>
+                    <Text style={styles.rideText}>To: Kinango</Text>
+                    <Text style={styles.rideText}>Time: 12:44</Text>
+                    <Text style={styles.rideText}>Passenger (limit): 7</Text>
+                </View>
+                <View style = {styles.rightCln}> 
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.delButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
+                            <Text style={styles.buttonText}>Delete</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('AddEditRideScreen')}>
+                            <Text style={styles.buttonText}> Edit</Text>
+                        </TouchableOpacity>
+                    </View> 
+                    <View style={styles.statusPriceContainer}>
+                        <Text style={styles.priceText}>77$</Text>
+                    </View>
+                </View>
+            </View>    
+            {/* make button dynamic depending on status */}
+                <TouchableOpacity style={styles.shareButton} onPress={() => navigation.navigate('RideRequestScreen')}>
+                    <Text style={styles.buttonText}>Review requests (3) </Text>
+                </TouchableOpacity>
+          
+        </View>
     
       </ScrollView>
 
-      <TouchableOpacity style={[styles.shareButton, { position: 'relative'}]} onPress={() => {}}>
+      <TouchableOpacity style={[styles.shareButton, {marginBottom: 20, position: 'relative'}]} onPress={() => navigation.navigate('AddEditRideScreen')}>
         <Text style={styles.buttonText}>Add Ride</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -120,6 +139,13 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     backgroundColor: '#000', 
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5, 
+    marginRight: 5, 
+  }, 
+  delButton: {
+    backgroundColor: '#f54e42', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5, 

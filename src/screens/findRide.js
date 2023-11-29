@@ -50,7 +50,7 @@ export default function FindRide({ navigation }) {
       </ScrollView>
 
       <TouchableOpacity style={styles.safetyTipsButton}>
-        <Text style={styles.buttonText}>Safety Tips</Text>
+        <Text style={[styles.buttonText, {color: '#000'}]}>Safety Tips</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     buttonText: {
       color: '#fff', 
       textAlign: 'center',
+      fontWeight: 'bold'
     },
     filterContainer: {
       flexDirection: 'row',
