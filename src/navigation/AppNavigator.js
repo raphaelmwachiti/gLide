@@ -5,6 +5,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import CustomTabBar from '../components/CustomTabBar'
 import FindRideScreen from '../screens/findRide'
 import DriverScreen from '../screens/DriverScreen'
+import ReviewRideScreen from '../screens/ReviewRideScreen'
+import ConfirmationScreen from '../screens/ConfirmationScreen'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -30,6 +32,16 @@ function AppNavigator() {
         name="GlideDriveTabs" 
         component={GlideDriveTabs}
         options={{ headerShown: false }} 
+      />
+      <Stack.Screen 
+        name="ReviewRideScreen" 
+        component={ReviewRideScreen}
+        options={{ headerShown: false }}
+      /> 
+      <Stack.Screen 
+        name="ConfirmationScreen" 
+        component={ConfirmationScreen}
+        options={{ headerShown: false }}
       />
     
     </Stack.Navigator>

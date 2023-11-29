@@ -1,18 +1,17 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image, View, Text, SafeAreaView, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function FindRide() {
+export default function FindRide({ navigation }) {
   const rides = [
     { id: 1, name: 'Lambo Urus', price: '5.787$', arriveBy: '12:03 am', rating: '2/7', color: 'silver' },
     { id: 2, name: 'Ferrari Urus', price: '5.787$', arriveBy: '11:03 am', rating: '2/7', color: 'silver' },
-    // Add more rides as needed...
   ];
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput placeholder="Your location" style={styles.input} />
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity style={styles.button} onPress={() => {}}>
           <Text style={styles.buttonText}>Add Stop</Text>
         </TouchableOpacity>
         <TextInput placeholder="Your destination" style={styles.input} />
@@ -21,16 +20,31 @@ export default function FindRide() {
       <View style={styles.filterContainer}>
        
       </View>
-      
+      <View> 
+        <Text style ={{ paddingLeft:10, fontWeight: 'bold', textDecorationLine: 'underline', marginTop: 10,}} > Avaliable rides (pick one) </Text>
+      </View>
       <ScrollView style={styles.rideListContainer} contentContainerStyle={styles.scrollViewContent}>
         {rides.map((ride) => (
           <View key={ride.id} style={styles.rideCard}>
-            <Text style={styles.rideName}>{ride.name} - {ride.price}</Text>
-            <Text style={styles.rideDetail}>Arrive by: {ride.arriveBy}</Text>
-            <Text style={styles.rideDetail}>Rating: {ride.rating} - {ride.color}</Text>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
-              <Text style={styles.buttonText}>Book</Text>
-            </TouchableOpacity>
+                <View style={styles.profileColumn}>
+                    <Image
+                    source={require('../assets/pp.jpg')} 
+                    style={styles.profilePic}
+                    />
+                </View>
+                <View style={styles.detailsColumn}>
+                    <Text style={styles.rideName}>{ride.name} - {ride.price}</Text>
+                    <Text style={styles.rideDetail}>Arrive by: {ride.arriveBy}</Text>
+                    <Text style={styles.rideDetail}>Rating: {ride.rating} - {ride.color}</Text>
+                </View>
+                <View style={styles.buttonsColumn}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ReviewRideScreen')}>
+                        <Text style={styles.buttonText}>Review</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <Text style={styles.buttonText}>Book</Text>
+                    </TouchableOpacity>
+                </View>
           </View>
         ))}
       </ScrollView>
@@ -76,18 +90,36 @@ const styles = StyleSheet.create({
       marginTop: 10, 
     },
     rideCard: {
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: 20,
-      borderBottomWidth: 1,
-      borderBottomColor: '#EEE', 
-      backgroundColor: '#FAFAFA',
-      marginVertical: 8,
-      borderWidth: 1,
-      borderColor: '#DDD', 
-      borderRadius: 10, 
-      backgroundColor: '#FAFAFA', 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#EEE',
+        backgroundColor: '#FAFAFA',
+        marginVertical: 8,
+        marginHorizontal: 5,
+        borderWidth: 1,
+        borderColor: '#DDD',
+        borderRadius: 10,
+        paddingVertical: 20,
+        paddingLeft: 10,
+        paddingRight: 20,
+    },
+    profileColumn: {
+        width: '20%',
+        alignItems: 'center', 
+    },
+    profilePic: {
+        width: 60, 
+        height: 60, 
+        borderRadius: 25, 
+    },
+    detailsColumn: {
+        width: '50%',
+    },
+    buttonsColumn: {
+        width: '30%',
+        alignItems: 'flex-end',
     },
     rideName: {
       fontWeight: 'bold',
@@ -95,14 +127,15 @@ const styles = StyleSheet.create({
     },
     rideDetail: {
       color: '#666', 
-      marginBottom: 10
+      marginBottom: 5
     },
     button: {
-      backgroundColor: '#21d111', 
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 5,
-      alignSelf: 'flex-start', 
+        backgroundColor: '#21d111',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginBottom: 5,
+        alignSelf: 'stretch', 
     },
 
     safetyTipsButton: {
