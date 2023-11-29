@@ -36,11 +36,14 @@ const DriverScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.searchContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Add Stop</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
+                <Text style={styles.buttonText}>Set to FreeRoam (?)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.cancelButton, {width: '47%', alignItems: 'center'}]} onPress={() => {}}>
+                <Text style={styles.buttonText}> Edit profile </Text>
+            </TouchableOpacity>
+        </View> 
       
       <View> 
         <Text style ={{ paddingLeft:10, fontWeight: 'bold', textDecorationLine: 'underline', marginTop: 10,}} > Rides that you posted  </Text>
@@ -79,7 +82,7 @@ const DriverScreen = () => {
     
       </ScrollView>
 
-      <TouchableOpacity style={styles.shareButton} onPress={() => {}}>
+      <TouchableOpacity style={[styles.shareButton, { position: 'relative'}]} onPress={() => {}}>
         <Text style={styles.buttonText}>Add Ride</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -92,14 +95,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 70,
+    paddingBottom: 80,
   },
   tabContainer: {
     flexDirection: 'row',
+    height: '20%'
  
   },
   scrollView: {
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    
   },
   row1: {
     flexDirection: 'row', 
@@ -148,6 +153,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     marginHorizontal: 10, 
     marginVertical: 10,
+    
   },
   rideDetails: {
     justifyContent: 'center',
