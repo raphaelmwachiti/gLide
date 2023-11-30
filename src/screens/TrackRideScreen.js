@@ -45,7 +45,7 @@ const TrackRideScreen = ({ navigation }) => {
           <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
             <Text style={styles.buttonText}> Cancel Glide (5:03)</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.trackButton} onPress={() => {}}>
+          <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('ChatScreen')}>
             <Text style={styles.buttonText}> Talk to driver </Text>
           </TouchableOpacity>
         </View> 

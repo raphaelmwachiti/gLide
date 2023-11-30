@@ -9,7 +9,8 @@ import ReviewRideScreen from '../screens/ReviewRideScreen'
 import ConfirmationScreen from '../screens/ConfirmationScreen'
 import TrackRideScreen from '../screens/TrackRideScreen'
 import AddEditRideScreen from '../screens/AddEditRideScreen'
-import RideRequestScreen from '../screens/RideRequestScreen '
+import RideRequestScreen from '../screens/RideRequestScreen'
+import ChatScreen from '../screens/ChatScreen'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -59,6 +60,11 @@ function AppNavigator() {
       <Stack.Screen 
         name="RideRequestScreen" 
         component={RideRequestScreen}
+        options={{ headerShown: false }}
+      /> 
+      <Stack.Screen 
+        name="ChatScreen" 
+        component={ChatScreen}
         options={{ headerShown: false }}
       />
     

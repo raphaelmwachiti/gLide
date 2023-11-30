@@ -2,8 +2,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 
-const RideRequestScreen = () => {
-  // Sample data - replace with actual data from your backend or state management
+const RideRequestScreen = ({ navigation }) => {
   const rideRequests = [
     {
       id: 1,
@@ -23,7 +22,7 @@ const RideRequestScreen = () => {
         departBy: '11:11 am',
         passengers: 5,
       },
-    // ... other ride requests
+    
   ];
 
   return (
@@ -50,8 +49,8 @@ const RideRequestScreen = () => {
           </View>
         </View>
       ))}
-      <TouchableOpacity style={styles.acceptButton}>
-        <Text style={styles.buttonText}>Return to rides page</Text>
+      <TouchableOpacity style={styles.returnButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })}>
+        <Text style={styles.buttonText}>Return to all rides </Text>
      </TouchableOpacity>
       <TouchableOpacity style={styles.safetyTipsButton}>
         <Text style={styles.safetyTipsText}>Safety tips</Text>
@@ -114,6 +113,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     textAlign: 'center',
+    fontWeight: 'bold'
   },
   safetyTipsButton: {
     backgroundColor: '#ddd',
@@ -127,8 +127,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+returnButton: {
+    backgroundColor: '#000',
+    padding: 15,
+    borderRadius: 5,
+    width: '77%',
+    marginLeft: 45,
+    marginBottom: 5,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 80,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   safetyTipsText: {
     fontSize: 16,
+    fontWeight: 'bold'
   },
   
 });
