@@ -13,6 +13,7 @@ import RideRequestScreen from '../screens/RideRequestScreen'
 import ChatScreen from '../screens/ChatScreen'
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import RideHistory from '../screens/RideHistory'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -80,6 +81,11 @@ function AppNavigator() {
       <Stack.Screen 
         name="ChatScreen" 
         component={ChatScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="RideHistory" 
+        component={RideHistory}
         options={{ headerShown: false }}
       />
     
