@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "596927009746",
+    "firebase_url": "https://glide-70f74-default-rtdb.firebaseio.com",
+    "project_id": "glide-70f74",
+    "storage_bucket": "glide-70f74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596927009746:android:02c177033aaff235172e0b",
+        "android_client_info": {
+          "package_name": "com.glide.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0RvHLKSY6r_YAd6mAhWUCGA3-BA4Tb34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
