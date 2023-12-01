@@ -11,6 +11,8 @@ import TrackRideScreen from '../screens/TrackRideScreen'
 import AddEditRideScreen from '../screens/AddEditRideScreen'
 import RideRequestScreen from '../screens/RideRequestScreen'
 import ChatScreen from '../screens/ChatScreen'
+import LoginScreen from '../screens/LoginScreen';
+import SignupScreen from '../screens/SignupScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -18,6 +20,7 @@ const Tab = createMaterialTopTabNavigator();
 function GlideDriveTabs() {
   return (
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
+      
       <Tab.Screen name="Glide" component={FindRideScreen} />
       <Tab.Screen name="Drive" component={DriverScreen} />
     </Tab.Navigator>
@@ -26,7 +29,19 @@ function GlideDriveTabs() {
 
 function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="login">
+      <Stack.Screen
+      name='login'
+      component={LoginScreen}
+      options={{headerShown:false}}/>
+      <Stack.Screen
+      name='SignUp'
+      component={SignupScreen}
+      options={{headerShown:false}}/>
+
+      
+
+
       <Stack.Screen 
         name="Home" 
         component={HomeScreen} 
