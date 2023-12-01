@@ -43,7 +43,7 @@ const ConfirmationScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.safetyTipsButton}>
+        <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate('SafetyScreen')}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
         </TouchableOpacity>
       </View>
