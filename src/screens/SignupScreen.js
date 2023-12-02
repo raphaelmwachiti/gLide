@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SignupScreen() {
   const navigation = useNavigation();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSignUp = () => {
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    navigation.navigate('Home')
+  };
 
   return (
     <View style={styles.container}>
@@ -25,12 +39,16 @@ export default function SignupScreen() {
             <TextInput
               placeholder="Username"
               placeholderTextColor={'gray'}
+              value={username}
+              onChangeText={(text) => setUsername(text)}
             />
           </View>
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="Email"
               placeholderTextColor={'gray'}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
           </View>
           <View style={[styles.inputContainer, styles.mbPassword]}>
@@ -38,18 +56,29 @@ export default function SignupScreen() {
               placeholder="Password"
               placeholderTextColor={'gray'}
               secureTextEntry
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+          </View>
+          <View style={[styles.inputContainer, styles.mbPassword]}>
+            <TextInput
+              placeholder="Confirm Password"
+              placeholderTextColor={'gray'}
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
             />
           </View>
 
           <View style={styles.fullWidth}>
-            <TouchableOpacity style={styles.signupButton}>
+            <TouchableOpacity style={styles.signupButton} onPress={handleSignUp}>
               <Text style={styles.signupButtonText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.justifyCenter}>
             <Text>Already have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.push('Login')}>
+            <TouchableOpacity onPress={() => navigation.navigate('login')}>
               <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
           </View>

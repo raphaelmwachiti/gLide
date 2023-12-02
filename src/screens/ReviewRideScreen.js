@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import SafetyScreen from './SafetyScreen';
 
 const ReviewRideScreen = ({ navigation }) => {
   return (
@@ -27,7 +28,7 @@ const ReviewRideScreen = ({ navigation }) => {
         <Text style={styles.aboutDetail}> - Messi has been driving for 25 years 4 days and 69 minutes </Text>
         <Text style={styles.aboutDetail}> - Messi has been vetted by our team through interviews and background check</Text>
 
-        <Text style={styles.reviewsTitle}>Reviews - 2/7 (add star emoji)</Text>
+        <Text style={styles.reviewsTitle}>Reviews - 2/7 (⭐⭐)</Text>
         <View style={styles.reviewsCard}> 
           <View style={styles.reviewPicClmn} >
           <Image
@@ -56,7 +57,7 @@ const ReviewRideScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.safetyTipsButton}>
+        <TouchableOpacity style={styles.safetyTipsButton}onPress={()=>navigation.navigate(SafetyScreen)}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
         </TouchableOpacity>
       </View>

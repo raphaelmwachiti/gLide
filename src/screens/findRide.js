@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, View, Text, SafeAreaView, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import SafetyScreen from './SafetyScreen';
 
 export default function FindRide({ navigation }) {
   const rides = [
@@ -49,7 +50,7 @@ export default function FindRide({ navigation }) {
         ))}
       </ScrollView>
 
-      <TouchableOpacity style={styles.safetyTipsButton}>
+      <TouchableOpacity style={styles.safetyTipsButton} onPress={()=>navigation.navigate(SafetyScreen)}>
         <Text style={[styles.buttonText, {color: '#000'}]}>Safety Tips</Text>
       </TouchableOpacity>
     </SafeAreaView>

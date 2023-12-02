@@ -14,6 +14,8 @@ import ChatScreen from '../screens/ChatScreen'
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import SafetyScreen from '../screens/SafetyScreen';
+import RideHistory from '../screens/RideHistory';
+
 
 
 const Stack = createStackNavigator();
@@ -25,6 +27,8 @@ function GlideDriveTabs() {
       
       <Tab.Screen name="Glide" component={FindRideScreen} />
       <Tab.Screen name="Drive" component={DriverScreen} />
+      
+      
     </Tab.Navigator>
   );
 }
@@ -85,13 +89,20 @@ function AppNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+      name="RideHistory"
+      component={RideHistory}
+      options={{headerShown:false}}/>
+      <Stack.Screen
       name="SafetyScreen"
       component={SafetyScreen}
       options={{headerShown: false}}/>
       
+      
     
     </Stack.Navigator>
+   
   );
 }
+
 
 export default AppNavigator;
