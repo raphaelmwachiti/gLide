@@ -15,6 +15,7 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import SafetyScreen from '../screens/SafetyScreen';
 
+
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
@@ -87,6 +88,7 @@ function AppNavigator() {
       name="SafetyScreen"
       component={SafetyScreen}
       options={{headerShown: false}}/>
+      
     
     </Stack.Navigator>
   );

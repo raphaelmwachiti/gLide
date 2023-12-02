@@ -36,7 +36,7 @@ const ConfirmationScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
             {/* on click the share button should show on screeen pop up asking for phone number and email of desired reciept */}
           <TouchableOpacity style={styles.shareButton} >
-            <Text style={styles.buttonText}> Share ride details with family or freind</Text>
+            <Text style={styles.buttonText}> Share ride details with family or friend</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
             <Text style={styles.buttonText}> Proceed to track your ride</Text>

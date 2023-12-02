@@ -1,6 +1,7 @@
 // SafetyScreen.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Linking, Modal } from 'react-native';
+import ChatScreen from './ChatScreen';
 
 const SafetyScreen = ({ navigation }) => {
   const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);
@@ -43,6 +44,12 @@ const SafetyScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>Emergency Call</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+              style={[styles.button, styles.chatButton]}
+              
+      >
+        <Text style={styles.buttonText}>Chat with Us</Text>
+      </TouchableOpacity>
 
       {/* Got It Button */}
       <TouchableOpacity
@@ -69,6 +76,7 @@ const SafetyScreen = ({ navigation }) => {
               >
                 <Text style={styles.buttonText}>Yes</Text>
               </TouchableOpacity>
+              
               <TouchableOpacity
                 style={styles.modalButton}
                 onPress={hideEmergencyModal}
@@ -149,6 +157,9 @@ const styles = StyleSheet.create({
   modalButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  chatButton: {
+    backgroundColor: '#4CAF50', // Customize the color for the chat button
   },
 });
 
