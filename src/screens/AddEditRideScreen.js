@@ -1,32 +1,155 @@
-import React from 'react';
-import { SafeAreaView } from 'react-native';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from "react-native";
+import db from "@react-native-firebase/database";
+import auth from "@react-native-firebase/auth";
 
 const AddEditRideScreen = ({ navigation }) => {
-  // State and logic for handling form inputs would go here
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [allowStops, setAllowStops] = useState(false);
+  const [time, setTime] = useState("");
+  const [passengerLimit, setPassengerLimit] = useState("");
+  const [driver, setDriver] = useState(null);
+
+  useEffect(() => {
+    const currentUser = auth().currentUser;
+
+    if (currentUser) {
+      const uid = currentUser.uid;
+      const userRef = db().ref(`/users/${uid}/name`); 
+
+      userRef
+        .once("value")
+        .then((snapshot) => {
+          const userName = snapshot.val(); 
+          if (userName) {
+            setDriver(userName); 
+          } else {
+            console.log("User name is not set in the database.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data: ", error);
+        });
+    }
+  }, []);
+
+  const addRide = async () => {
+    // Validate input data and ensure a driver is set
+    if (!from || !to || !time || !passengerLimit || !driver) {
+      Alert.alert(
+        "Error",
+        "Please fill out all fields and ensure you're logged in."
+      );
+      return;
+    }
+
+    // Add ride to Firebase Database
+    const newRideRef = db().ref("/rides").push();
+    try {
+      await newRideRef.set({
+        from,
+        to,
+        allowStops,
+        time,
+        passengerLimit,
+        driver, // Add the driver's UID to the ride data
+        // You can add more fields here as necessary
+      });
+      Alert.alert("Success", "Ride added successfully.");
+      // Navigate to the 'Drive' screen or reset the form as needed
+      navigation.navigate("GlideDriveTabs", { screen: "Drive" });
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.warningText}>This ride has 3 books editing will cancel all</Text>
+      <Text style={styles.warningText}>
+        This ride has 3 books editing will cancel all
+      </Text>
       <View style={styles.form}>
-        <TextInput style={styles.input} placeholder="From" />
-        <TextInput style={styles.input} placeholder="To" />
-        
+        <TextInput
+          style={styles.input}
+          placeholder="From"
+          value={from}
+          onChangeText={setFrom}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="To"
+          value={to}
+          onChangeText={setTo}
+        />
+
         <View style={styles.toggleContainer}>
           <Text style={styles.toggleLabel}>Allow stops:</Text>
-          <TouchableOpacity style={styles.toggleButton}><Text>Yes</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.toggleButton}><Text>No</Text></TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.toggleButton,
+              allowStops ? styles.toggleButtonActive : null,
+            ]}
+            onPress={() => setAllowStops(true)}
+          >
+            <Text
+              style={[
+                styles.toggleButtonText,
+                allowStops ? styles.toggleButtonTextActive : null,
+              ]}
+            >
+              Yes
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.toggleButton,
+              !allowStops ? styles.toggleButtonActive : null,
+            ]}
+            onPress={() => setAllowStops(false)}
+          >
+            <Text
+              style={[
+                styles.toggleButtonText,
+                !allowStops ? styles.toggleButtonTextActive : null,
+              ]}
+            >
+              No
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        <TextInput style={styles.input} placeholder="Time" />
-        <TextInput style={styles.input} placeholder="Passenger limit" keyboardType="numeric" />
+        <TextInput
+          style={styles.input}
+          placeholder="Time"
+          value={time}
+          onChangeText={setTime}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Passenger limit"
+          keyboardType="numeric"
+          value={passengerLimit}
+          onChangeText={(text) =>
+            setPassengerLimit(text.replace(/[^0-9]/g, ""))
+          }
+        />
 
         <View style={styles.earningsContainer}>
           <Text style={styles.earningsText}>Estimated earnings</Text>
           <Text style={styles.priceText}>5.787$</Text>
         </View>
 
-        <TouchableOpacity style={styles.confirmButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })} >
+        <TouchableOpacity style={styles.confirmButton} onPress={addRide}>
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
       </View>
@@ -37,44 +160,51 @@ const AddEditRideScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff', 
+    backgroundColor: "#fff",
   },
   warningText: {
-    textAlign: 'center',
-    marginTop:30,
+    textAlign: "center",
+    marginTop: 30,
     margin: 10,
-    color: 'red', 
+    color: "red",
   },
   form: {
     padding: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
   },
   toggleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 10,
   },
   toggleLabel: {
     fontSize: 16,
   },
   toggleButton: {
-    backgroundColor: '#eee', // Change as needed
+    backgroundColor: "#eee", // Change as needed
     padding: 10,
     borderRadius: 5,
   },
+  toggleButtonActive: {
+    backgroundColor: "blue",
+  },
+  toggleButtonTextActive: {
+    // styles for when the button text is active/selected
+    color: "white", // just an example, use your own color
+  },
   earningsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 10,
-    backgroundColor: '#f7f7f7', // Change as needed
+    backgroundColor: "#f7f7f7", // Change as needed
     borderRadius: 5,
     marginBottom: 10,
   },
@@ -83,24 +213,24 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   confirmButton: {
-    backgroundColor: '#21d111', // Change as needed
+    backgroundColor: "#21d111", // Change as needed
     padding: 15,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 16,
   },
   safetyTipsButton: {
     padding: 15,
-    backgroundColor: '#ddd', // Change as needed
-    alignItems: 'center',
+    backgroundColor: "#ddd", // Change as needed
+    alignItems: "center",
     marginBottom: 10,
   },
   safetyTipsText: {
