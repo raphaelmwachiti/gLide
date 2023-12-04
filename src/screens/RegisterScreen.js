@@ -53,6 +53,7 @@ export default function RegisterScreen() {
           <View style={styles.formContainer}>
             <View style={[styles.inputContainer, styles.mbEmail]}>
               <TextInput
+              style={styles.inputText}
                 placeholder="Name"
                 placeholderTextColor={"gray"}
                 value={name}
@@ -61,6 +62,7 @@ export default function RegisterScreen() {
             </View>
             <View style={[styles.inputContainer, styles.mbEmail]}>
               <TextInput
+              style={styles.inputText}
                 placeholder="Email"
                 placeholderTextColor={"gray"}
                 value={email}
@@ -69,6 +71,7 @@ export default function RegisterScreen() {
             </View>
             <View style={[styles.inputContainer, styles.mbPassword]}>
               <TextInput
+              style={styles.inputText}
                 placeholder="Password"
                 placeholderTextColor={"gray"}
                 // secureTextEntry
@@ -87,7 +90,7 @@ export default function RegisterScreen() {
             </View>
   
             <View style={styles.justifyCenter}>
-              <Text>Already have an account? </Text>
+            <Text style={styles.inputText}>Already have an account? </Text>
               <TouchableOpacity onPress={() => navigation.push("LogIn")}>
                 <Text style={styles.signupText}>Login</Text>
               </TouchableOpacity>
@@ -121,8 +124,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   titleText: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
+    paddingRight: 10,
     fontSize: 28,
     letterSpacing: 1,
   },
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   loginButton: {
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#21d111",
     padding: 10,
     borderRadius: 20,
     marginBottom: 3,
@@ -165,5 +169,9 @@ const styles = StyleSheet.create({
   },
   signupText: {
     color: "#00BFFF",
+  },
+
+  inputText: {
+    color: "white",
   },
 });
