@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import MapView from 'react-native-maps';
+import SafetyScreen from './SafetyScreen';
 
 const TrackRideScreen = ({ navigation }) => {
   return (
@@ -54,7 +55,7 @@ const TrackRideScreen = ({ navigation }) => {
             <Text style={styles.buttonText}>Share live location and ride details</Text>
           </TouchableOpacity>
 
-        <TouchableOpacity style={styles.safetyTipsButton}>
+        <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate(SafetyScreen)}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
         </TouchableOpacity>
       </View>

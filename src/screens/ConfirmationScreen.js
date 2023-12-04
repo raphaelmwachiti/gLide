@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import SafetyScreen from './SafetyScreen';
 
 const ConfirmationScreen = ({ navigation }) => {
   return (
@@ -43,7 +44,7 @@ const ConfirmationScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.safetyTipsButton}>
+        <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate(SafetyScreen)}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
         </TouchableOpacity>
       </View>
