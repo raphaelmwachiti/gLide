@@ -12,7 +12,7 @@ import AddEditRideScreen from "../screens/AddEditRideScreen";
 import RideRequestScreen from "../screens/RideRequestScreen";
 import ChatScreen from "../screens/ChatScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import LogInScreen from "../screens/LogInScreen";
+import LogInScreen from "../screens/LogScreen";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
