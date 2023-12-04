@@ -12,6 +12,7 @@ import AddEditRideScreen from '../screens/AddEditRideScreen'
 import RideRequestScreen from '../screens/RideRequestScreen'
 import ChatScreen from '../screens/ChatScreen'
 
+
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
@@ -66,8 +67,7 @@ function AppNavigator() {
         name="ChatScreen" 
         component={ChatScreen}
         options={{ headerShown: false }}
-      />
-    
+      /> 
     </Stack.Navigator>
   );
 }
