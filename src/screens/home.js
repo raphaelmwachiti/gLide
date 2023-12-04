@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
-function HomeScreen({ navigation }) {
+function HomeScreen() {
+    const navigation = useNavigation();
+
     return (
       <View style={styles.container}>
         <Text style={styles.greeting}>Will you be Gliding or Driving?</Text>
