@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, View, Text, SafeAreaView, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function FindRide({ navigation }) {
   const rides = [
@@ -10,141 +11,152 @@ export default function FindRide({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <TextInput placeholder="Your location" style={styles.input} />
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Add Stop</Text>
+        <Text style={styles.pageTitle}>Find Your Ride</Text>
+        <View style={styles.searchInputContainer}>
+          <TextInput placeholder="Your location" style={styles.input} />
+          <TextInput placeholder="Your destination" style={styles.input} />
+        </View>
+        <TouchableOpacity style={styles.searchButton} onPress={() => {}}>
+          <Text style={[styles.buttonText, { color: '#FFF' }]}>Search Rides</Text>
         </TouchableOpacity>
-        <TextInput placeholder="Your destination" style={styles.input} />
       </View>
-      
-      <View style={styles.filterContainer}>
-       
-      </View>
-      <View> 
-        <Text style ={{ paddingLeft:10, fontWeight: 'bold', textDecorationLine: 'underline', marginTop: 10,}} > Avaliable rides (pick one) </Text>
-      </View>
+
       <ScrollView style={styles.rideListContainer} contentContainerStyle={styles.scrollViewContent}>
         {rides.map((ride) => (
           <View key={ride.id} style={styles.rideCard}>
-                <View style={styles.profileColumn}>
-                    <Image
-                    source={require('../assets/pp.jpg')} 
-                    style={styles.profilePic}
-                    />
-                </View>
-                <View style={styles.detailsColumn}>
-                    <Text style={styles.rideName}>{ride.name} - {ride.price}</Text>
-                    <Text style={styles.rideDetail}>Arrive by: {ride.arriveBy}</Text>
-                    <Text style={styles.rideDetail}>Rating: {ride.rating} - {ride.color}</Text>
-                </View>
-                <View style={styles.buttonsColumn}>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ReviewRideScreen')}>
-                        <Text style={styles.buttonText}>Review</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConfirmationScreen')}>
-                    <Text style={styles.buttonText}>Book</Text>
-                    </TouchableOpacity>
-                </View>
+            <Image source={require('../assets/pp.jpg')} style={styles.profilePic} />
+            <View style={styles.rideDetails}>
+              <Text style={styles.rideName}>{ride.name}</Text>
+              <Text style={styles.rideInfo}>Price: {ride.price}</Text>
+              <Text style={styles.rideInfo}>Arrive by: {ride.arriveBy}</Text>
+              <Text style={styles.rideInfo}>Rating: {ride.rating} - {ride.color}</Text>
+            </View>
+            <View style={styles.actionButtons}>
+              <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('ConfirmationScreen')}>
+                <MaterialIcons name="directions-car" size={24} color="#FFF" />
+                <Text style={[styles.buttonText, { marginLeft: 8 }]}>Book</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.reviewButton} onPress={() => navigation.navigate('ReviewRideScreen')}>
+                <MaterialIcons name="star" size={24} color="#FFD700" />
+                <Text style={[styles.buttonText, { marginLeft: 8 }]}>Review</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         ))}
       </ScrollView>
 
-      <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate('SafetyScreen')}>
-        <Text style={[styles.buttonText, {color: '#000'}]}>Safety Tips</Text>
+      <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate('SafetyScreen')}>
+        <Text style={[styles.buttonText, { color: '#FFF' }]}>Safety Tips</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#FFF', 
-    },
-    scrollViewContent: {
-        paddingBottom: 80, 
-      },
-    searchContainer: {
-      padding: 20, 
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: '#DDD', 
-      borderRadius: 5,
-      padding: 10,
-      marginBottom: 10, 
-    },
-    buttonText: {
-      color: '#fff', 
-      textAlign: 'center',
-      fontWeight: 'bold'
-    },
-    filterContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      padding: 10,
-      borderBottomWidth: 1,
-      borderBottomColor: '#EEE', 
-    },
-    rideListContainer: {
-      flex: 1, 
-      marginTop: 10, 
-    },
-    rideCard: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#EEE',
-        backgroundColor: '#FAFAFA',
-        marginVertical: 8,
-        marginHorizontal: 5,
-        borderWidth: 1,
-        borderColor: '#DDD',
-        borderRadius: 10,
-        paddingVertical: 20,
-        paddingLeft: 10,
-        paddingRight: 20,
-    },
-    profileColumn: {
-        width: '20%',
-        alignItems: 'center', 
-    },
-    profilePic: {
-        width: 60, 
-        height: 60, 
-        borderRadius: 25, 
-    },
-    detailsColumn: {
-        width: '50%',
-    },
-    buttonsColumn: {
-        width: '30%',
-        alignItems: 'flex-end',
-    },
-    rideName: {
-      fontWeight: 'bold',
-      marginBottom: 5, 
-    },
-    rideDetail: {
-      color: '#666', 
-      marginBottom: 5
-    },
-    button: {
-        backgroundColor: '#21d111',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-        marginBottom: 5,
-        alignSelf: 'stretch', 
-    },
 
-    safetyTipsButton: {
-      padding: 20,
-      backgroundColor: '#DDDDDD', 
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      textAlign: 'center', 
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F6F7F9',
+  },
+  searchContainer: {
+    padding: 20,
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2C3E50',
+    marginBottom: 20,
+  },
+  searchInputContainer: {
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#BDC3C7',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    fontSize: 16,
+    backgroundColor: '#ECF0F1',
+  },
+  searchButton: {
+    backgroundColor: '#21d111' ,// Bright green color
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color:'white',
+  },
+  rideListContainer: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    marginHorizontal: 20,
+    marginTop: 10,
+    borderRadius: 15,
+    elevation: 3,
+  },
+  rideCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#BDC3C7',
+  },
+  profilePic: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+  },
+  rideDetails: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  rideName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  rideInfo: {
+    fontSize: 16,
+    color: '#7F8C8D',
+    marginBottom: 4,
+  },
+  actionButtons: {
+    flexDirection: 'column', // Changed to column layout
+    alignItems: 'center',
+    marginTop: 8, // Added margin to separate the buttons
+  },
+  bookButton: {
+    flexDirection: 'row',
+    backgroundColor: '#E74C3C',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+  },
+  reviewButton: {
+    flexDirection: 'row',
+    backgroundColor: '#3498DB',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginTop: 8, // Added margin to separate the buttons
+    alignItems: 'center',
+    
+  },
+  safetyTipsButton: {
+    padding: 20,
+    backgroundColor: '#21d111', // Green color
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    textAlign: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+});
