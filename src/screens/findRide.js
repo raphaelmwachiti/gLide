@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECF0F1',
   },
   searchButton: {
-    backgroundColor: '#21d111' ,// Bright green color
+    backgroundColor: 'black' ,// Bright green color
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   reviewButton: {
     flexDirection: 'row',
-    backgroundColor: '#3498DB',
+    backgroundColor: '#21d111',
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
