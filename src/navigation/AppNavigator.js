@@ -13,6 +13,7 @@ import RideRequestScreen from "../screens/RideRequestScreen";
 import ChatScreen from "../screens/ChatScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import LogInScreen from "../screens/LogScreen";
+import SafetyScreen from "../screens/SafetyScreen";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -78,6 +79,11 @@ function AppNavigator() {
         name="ChatScreen"
         component={ChatScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SafetyScreen"
+        component={SafetyScreen}
+        options={{ headerShown: false }} 
       />
     </Stack.Navigator>
   );

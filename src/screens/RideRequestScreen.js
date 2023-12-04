@@ -52,7 +52,7 @@ const RideRequestScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.returnButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })}>
         <Text style={styles.buttonText}>Return to all rides </Text>
      </TouchableOpacity>
-      <TouchableOpacity style={styles.safetyTipsButton}>
+      <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate('SafetyScreen')}>
         <Text style={styles.safetyTipsText}>Safety tips</Text>
       </TouchableOpacity>
     </SafeAreaView>

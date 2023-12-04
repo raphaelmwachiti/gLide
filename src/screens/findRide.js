@@ -49,7 +49,7 @@ export default function FindRide({ navigation }) {
         ))}
       </ScrollView>
 
-      <TouchableOpacity style={styles.safetyTipsButton}>
+      <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate('SafetyScreen')}>
         <Text style={[styles.buttonText, {color: '#000'}]}>Safety Tips</Text>
       </TouchableOpacity>
     </SafeAreaView>
