@@ -19,20 +19,21 @@ const AddEditRideScreen = ({ navigation }) => {
   const [time, setTime] = useState("");
   const [passengerLimit, setPassengerLimit] = useState("");
   const [driver, setDriver] = useState(null);
+  const [price, setPrice] = useState("");
 
   useEffect(() => {
     const currentUser = auth().currentUser;
 
     if (currentUser) {
       const uid = currentUser.uid;
-      const userRef = db().ref(`/users/${uid}/name`); 
+      const userRef = db().ref(`/users/${uid}/name`);
 
       userRef
         .once("value")
         .then((snapshot) => {
-          const userName = snapshot.val(); 
+          const userName = snapshot.val();
           if (userName) {
-            setDriver(userName); 
+            setDriver(userName);
           } else {
             console.log("User name is not set in the database.");
           }
@@ -45,7 +46,7 @@ const AddEditRideScreen = ({ navigation }) => {
 
   const addRide = async () => {
     // Validate input data and ensure a driver is set
-    if (!from || !to || !time || !passengerLimit || !driver) {
+    if (!from || !to || !time || !passengerLimit || !driver || !price) {
       Alert.alert(
         "Error",
         "Please fill out all fields and ensure you're logged in."
@@ -63,7 +64,7 @@ const AddEditRideScreen = ({ navigation }) => {
         time,
         passengerLimit,
         driver, // Add the driver's UID to the ride data
-        // You can add more fields here as necessary
+        price,
       });
       Alert.alert("Success", "Ride added successfully.");
       // Navigate to the 'Drive' screen or reset the form as needed
@@ -144,10 +145,13 @@ const AddEditRideScreen = ({ navigation }) => {
           }
         />
 
-        <View style={styles.earningsContainer}>
-          <Text style={styles.earningsText}>Estimated earnings</Text>
-          <Text style={styles.priceText}>5.787$</Text>
-        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Price"
+          keyboardType="numeric"
+          value={price}
+          onChangeText={(text) => setPrice(text)}
+        />
 
         <TouchableOpacity style={styles.confirmButton} onPress={addRide}>
           <Text style={styles.buttonText}>Confirm</Text>
