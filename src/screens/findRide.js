@@ -95,15 +95,7 @@ export default function FindRide({ navigation }) {
                 <MaterialIcons name="directions-car" size={24} color="#FFF" />
                 <Text style={[styles.buttonText, { marginLeft: 8 }]}>Book</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.reviewButton}
-                onPress={() => navigation.navigate("ReviewRideScreen")}
-              >
-                <MaterialIcons name="star" size={24} color="#FFD700" />
-                <Text style={[styles.buttonText, { marginLeft: 8 }]}>
-                  Review
-                </Text>
-              </TouchableOpacity>
+              
             </View>
           </View>
         ))}
