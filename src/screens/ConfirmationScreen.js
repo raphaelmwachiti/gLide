@@ -1,26 +1,18 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import SafetyScreen from './SafetyScreen';
 
 const ConfirmationScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
-        <Image
-            source={require('../assets/confirm.jpg')} 
-            style={styles.confirmationImage}
-            />
+      <View style={styles.card}>
         <Text style={styles.confirmationText}>Your ride has been confirmed</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.titleText}> Ride details</Text>
-        <View style={styles.profileInfo}> 
+        <View style={styles.profileInfo}>
           <View style={styles.profileImgClmn}>
-            <Image
-            source={require('../assets/pp.jpg')} 
-            style={styles.profileImage}
-            />
+            {/* Remove profile image */}
           </View>
-          <View style={styles.profileDetailClmn}> 
+          <View style={styles.profileDetailClmn}>
             <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
             <Text style={styles.profileDetail}>Messi Leo Goat</Text>
             <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
@@ -31,20 +23,16 @@ const ConfirmationScreen = ({ navigation }) => {
         <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
         <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
         <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
-        <Text style={styles.aboutDetail}> - Call 911 us you feel unsafe and contact support</Text>
-       
+        <Text style={styles.aboutDetail}> - Call 911 if you feel unsafe and contact support</Text>
 
         <View style={styles.buttonContainer}>
-            {/* on click the share button should show on screeen pop up asking for phone number and email of desired reciept */}
-          <TouchableOpacity style={styles.shareButton} >
-            <Text style={styles.buttonText}> Share ride details with family or freind</Text>
-          </TouchableOpacity>
+          {/* Share button removed */}
           <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
-            <Text style={styles.buttonText}> Proceed to track your ride</Text>
+            <Text style={styles.buttonText}> Confirm Ride</Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate(SafetyScreen)}>
+        <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate(SafetyScreen)}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
         </TouchableOpacity>
       </View>
@@ -57,53 +45,49 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
   },
   card: {
-    backgroundColor: '#f0f0f0', 
+    backgroundColor: '#f0f0f0',
     borderRadius: 8,
     padding: 20,
-    alignItems: 'center', 
+    alignItems: 'center',
     width: '90%',
-    maxWidth: 600, 
-  },
-  confirmationImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 60,
-    marginBottom: 10,
+    maxWidth: 600,
   },
   confirmationText: {
     marginBottom: 20,
     textAlign: 'center',
     color: '#333',
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-  }, 
-  titleText: { 
+  },
+  titleText: {
     marginBottom: 10,
     textAlign: 'center',
     color: '#333',
     fontWeight: 'bold',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
   profileInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 6, 
+    marginHorizontal: 6,
   },
-  profileImgClmn: { 
-    width: '20%'
-  }, 
+  profileImgClmn: {
+    width: '20%',
+  },
   profileDetailClmn: {
-    width: '70%'
+    width: '70%',
   },
   profileImage: {
     width: 70,
     height: 70,
-    borderRadius: 60,
-    marginLeft: -20
+    borderRadius: 35,
+    marginLeft: -20,
+    borderWidth: 2,
+    borderColor: '#000',
   },
   profileName: {
     fontWeight: 'bold',
@@ -131,32 +115,26 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-around',
   },
-  shareButton: {
-    backgroundColor: '#000', 
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
   trackButton: {
-    backgroundColor: '#21d111', 
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10, 
+    backgroundColor: '#21d111',
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
-  }, 
+    fontSize: 16,
+  },
   safetyTipsButton: {
-    marginTop:10,
+    marginTop: 20,
   },
   safetyTipsText: {
     fontWeight: 'bold',
-    color: '#21d111', 
+    color: 'black',
   },
-  
 });
 
 export default ConfirmationScreen;

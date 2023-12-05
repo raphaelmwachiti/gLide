@@ -46,7 +46,7 @@ export default function FindRide({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <Text style={styles.pageTitle}>Find Your Ride</Text>
+        <Text style={styles.pageTitle}>Find Your Ride!</Text>
         <View style={styles.searchInputContainer}>
           <TextInput placeholder="Your location" style={styles.input} />
           <TextInput placeholder="Your destination" style={styles.input} />
