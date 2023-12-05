@@ -23,10 +23,13 @@ export default function FindRide({ navigation }) {
       (snapshot) => {
         const ridesData = snapshot.val();
         if (ridesData) {
-          const ridesArray = Object.keys(ridesData).map((key) => {
-            return { id: key, ...ridesData[key] };
-          });
-          setRides(ridesArray);
+          const openRidesArray = Object.keys(ridesData)
+            .map((key) => {
+              const ride = { id: key, ...ridesData[key] };
+              return ride.status === "Open" ? ride : null;
+            })
+            .filter(Boolean); // This will filter out any `null` entries from the array
+          setRides(openRidesArray);
         } else {
           setRides([]);
         }
@@ -36,6 +39,7 @@ export default function FindRide({ navigation }) {
       }
     );
 
+    // Clean up the listener when the component unmounts
     return () => ridesRef.off("value", onValueChange);
   }, []);
 
