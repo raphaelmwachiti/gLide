@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Alert,
 } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import db from "@react-native-firebase/database";
 
@@ -89,8 +90,12 @@ const EditRide = () => {
 
 
   return (
+    
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Edit Ride</Text>
+      
+      <TouchableOpacity style={styles.backButton}></TouchableOpacity>
+
 
       <TextInput
         style={styles.input}
@@ -98,6 +103,7 @@ const EditRide = () => {
         value={editedRide.from}
         onChangeText={(text) => setEditedRide({ ...editedRide, from: text })}
       />
+
 
       <TextInput
         style={styles.input}
@@ -267,6 +273,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     marginTop: 10,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    zIndex: 1,
   },
 });
 export default EditRide;
