@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import db from "@react-native-firebase/database";
@@ -53,6 +54,39 @@ const EditRide = () => {
         console.error("Error updating ride details: ", error);
       });
   };
+
+  const handleDeleteRide = () => {
+    // Prompt the user to confirm the deletion
+    Alert.alert(
+      "Confirm Delete",
+      "Are you sure you want to delete this ride?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            // Delete ride from Firebase Database
+            const ridesRef = db().ref(`/rides/${rideId}`);
+            ridesRef
+              .remove()
+              .then(() => {
+                console.log("Ride deleted successfully");
+                navigation.goBack();
+              })
+              .catch((error) => {
+                console.error("Error deleting ride: ", error);
+              });
+          },
+          style: "destructive", // Button style for iOS
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -121,6 +155,14 @@ const EditRide = () => {
       >
         <Text style={styles.buttonText}>Save Changes</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={handleDeleteRide}
+      >
+        <Text style={styles.buttonText}>Delete Ride</Text>
+      </TouchableOpacity>
+
     </SafeAreaView>
   );
 };
@@ -219,6 +261,12 @@ const styles = StyleSheet.create({
   safetyTipsText: {
     fontSize: 16,
   },
-  // Add more styles as needed
+  deleteButton: {
+    backgroundColor: "black",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
 });
 export default EditRide;
