@@ -43,7 +43,7 @@ export default function RegisterScreen() {
     return (
       <View style={styles.container}>
         <StatusBar style="light" />
-        <Image style={styles.backgroundImage} source={require("../assets/backgroundimage.jpeg")} />
+        <Image style={styles.backgroundImage} source={require("../assets/glide.png")} />
   
         <View style={styles.titleAndFormContainer}>
           <View style={styles.titleContainer}>
@@ -54,7 +54,7 @@ export default function RegisterScreen() {
               <TextInput
               style={styles.inputText}
                 placeholder="Name"
-                placeholderTextColor={"gray"}
+                placeholderTextColor={"white"}
                 value={name}
                 onChangeText={setName} // Bind state setter
               />
@@ -63,7 +63,7 @@ export default function RegisterScreen() {
               <TextInput
               style={styles.inputText}
                 placeholder="Email"
-                placeholderTextColor={"gray"}
+                placeholderTextColor={"white"}
                 value={email}
                 onChangeText={setEmail} // Bind state setter
               />
@@ -72,7 +72,7 @@ export default function RegisterScreen() {
               <TextInput
               style={styles.inputText}
                 placeholder="Password"
-                placeholderTextColor={"gray"}
+                placeholderTextColor={"white"}
                 // secureTextEntry
                 value={password}
                 onChangeText={setPassword} // Bind state setter
@@ -89,7 +89,7 @@ export default function RegisterScreen() {
             </View>
   
             <View style={styles.justifyCenter}>
-            <Text style={styles.inputText}>Already have an account? </Text>
+            <Text style={styles.signupText}>Already have an account? </Text>
               <TouchableOpacity onPress={() => navigation.push("LogIn")}>
                 <Text style={styles.signupText}>Login</Text>
               </TouchableOpacity>
@@ -106,10 +106,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   backgroundImage: {
-    ...StyleSheet.absoluteFillObject,
-    height: undefined,
-    width: undefined,
-    flex: 1,
+    
+    height: 300,
+    width: 300,
+    flex: 0.75,
+    resizeMode: 'contain',
+    alignContent:'center',
+    marginHorizontal:75,
+    marginTop:150,
   },
   titleAndFormContainer: {
     flex: 1,
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginHorizontal: 20, // Increase the margin for more space on each side
-    marginBottom: 10,
+    marginTop: -500,
   },
   inputContainer: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   signupText: {
-    color: "#00BFFF",
+    color: "black",
   },
 
   inputText: {
