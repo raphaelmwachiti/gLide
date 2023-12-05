@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,24 +11,53 @@ import {
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import db from "@react-native-firebase/database";
+import auth from "@react-native-firebase/auth";
 
-const ChatScreen = ({ navigation }) => {
-  const [messages, setMessages] = useState([
-    "Hey I should be by the elephant wearing blue nike fit",
-    "I arrive in 5 minutes",
-    "I don't see you",
-    "Glide completed (chat deletion - 10:03)",
-    "You left your socks",
-  ]);
-  const [newMessage, setNewMessage] = useState("");
+const ChatScreen = ({ route, navigation }) => {
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
+    const { rideId } = route.params;
+    const [currentUser, setCurrentUser] = useState(null);
 
-  const sendMessage = () => {
-    if (newMessage.trim().length > 0) {
-      setMessages([...messages, newMessage]);
-      setNewMessage("");
-      // Here you would also handle sending the message to your backend or Firebase
-    }
-  };
+    useEffect(() => {
+        const user = auth().currentUser;
+        if (user) {
+          const userRef = db().ref(`/users/${user.uid}/name`);
+          userRef.once("value").then((snapshot) => {
+            setCurrentUser(snapshot.val()); // This will contain the user's name
+          });
+        }
+      }, []);
+
+      useEffect(() => {
+        if (rideId) {
+          // Start listening for messages for the current ride
+          const messagesRef = db().ref(`/rides/${rideId}/messages`);
+          messagesRef.on('value', snapshot => {
+            const messagesData = snapshot.val() || {};
+            const loadedMessages = Object.values(messagesData);
+            setMessages(loadedMessages);
+          });
+    
+          return () => {
+            messagesRef.off('value'); // Stop listening when the component is unmounted
+          };
+        }
+      }, [rideId]);
+
+      const sendMessage = () => {
+        if (newMessage.trim() && currentUser && rideId) {
+          const messagesRef = db().ref(`/rides/${rideId}/messages`);
+          const newMessageRef = messagesRef.push(); // create a new message entry
+          newMessageRef.set({
+            text: newMessage,
+            timestamp: Date.now(),
+            senderId: currentUser,
+          });
+          setNewMessage('');
+        }
+      };
 
   return (
     <KeyboardAvoidingView
@@ -44,9 +73,21 @@ const ChatScreen = ({ navigation }) => {
         </Text>
       </View>
 
-      <ScrollView style={styles.chatContainer}>
-        {/* Messages would be dynamically mapped here */}
-      </ScrollView>
+      <ScrollView style={styles.chatContainer}
+  ref={ref => this.scrollView = ref}
+  onContentSizeChange={() => this.scrollView.scrollToEnd({ animated: true })}
+>
+  {messages.sort((a, b) => a.timestamp - b.timestamp) // Sort messages by timestamp
+    .map((message, index) => (
+      <View key={index} style={[
+        styles.message,
+        message.senderId === currentUser ? styles.myMessage : styles.theirMessage // Differentiate between sent and received messages
+      ]}>
+        <Text style={styles.messageText}>{message.text}</Text>
+      </View>
+  ))}
+</ScrollView>
+
 
       <View style={styles.inputContainer}>
         <TextInput
