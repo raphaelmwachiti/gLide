@@ -62,81 +62,44 @@ const DriverScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={() =>
-            navigation.navigate("GlideDriveTabs", { screen: "Glide" })
-          }
-        >
-          <Text style={styles.buttonText}>Set to FreeRoam (?)</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.cancelButton, { width: "47%", alignItems: "center" }]}
-          onPress={() => {}}
-        >
-          <Text style={styles.buttonText}> Edit profile </Text>
-        </TouchableOpacity>
+      <View style={styles.searchContainer}>
+        <Text style={styles.pageTitle}>Your Posted Rides</Text>
       </View>
 
-      <View>
-        <Text
-          style={{
-            paddingLeft: 10,
-            fontWeight: "bold",
-            textDecorationLine: "underline",
-            marginTop: 10,
-          }}
-        >
-          {" "}
-          Rides that you posted{" "}
-        </Text>
-      </View>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContent}
-      >
+      <ScrollView style={styles.rideListContainer} contentContainerStyle={styles.scrollViewContent}>
         {rides.map((ride) => (
-          <View key={ride.id} style={styles.rideContainer}>
-            <View style={styles.row1}>
-              <View style={styles.rideDetails}>
-                <Text style={styles.rideText}>From: {ride.from}</Text>
-                <Text style={styles.rideText}>To: {ride.to}</Text>
-                <Text style={styles.rideText}>Time: {ride.time}</Text>
-                <Text style={styles.rideText}>
-                  Passenger (limit): {ride.passengerLimit}
-                </Text>
-              </View>
-              <View style={styles.rightCln}>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                    style={styles.trackButton}
-                    onPress={() => {}}
-                  >
-                    <Text style={styles.buttonText}> Edit </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.statusPriceContainer}>
-                  <Text style={styles.priceText}>{ride.price}</Text>
-                </View>
+          <View key={ride.id} style={styles.rideCard}>
+            <View style={styles.rideDetails}>
+              <Text style={styles.rideName}>From: {ride.from}</Text>
+              <Text style={styles.rideDetail}>To: {ride.to}</Text>
+              <Text style={styles.rideDetail}>Time: {ride.time}</Text>
+              <Text style={styles.rideDetail}>Passenger Limit: {ride.passengerLimit}</Text>
+            </View>
+
+            <View style={styles.buttonsColumn}>
+              <TouchableOpacity style={styles.editButton} onPress={() => {}}>
+                <Text style={styles.buttonText}>Edit</Text>
+              </TouchableOpacity>
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceText}>{ride.price}</Text>
               </View>
             </View>
-            {/* make button dynamic depending on status */}
-            <TouchableOpacity
-              style={styles.shareButton}
-              onPress={() => navigation.navigate("EditRide")}
-            >
-              <Text style={styles.buttonText}>Edit </Text>
-            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
 
       <TouchableOpacity
-        style={[styles.shareButton, { marginBottom: 20, position: "relative" }]}
+        style={[styles.addButton, {backgroundColor: '#21d111'}]}
         onPress={() => navigation.navigate("AddEditRideScreen")}
       >
-        <Text style={styles.buttonText}>Add Ride</Text>
+        <Text style={styles.buttonText}>+</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.safetyTipsButton, {backgroundColor: 'black'}]}
+        onPress={() => navigation.navigate("SafetyScreen")}
+      >
+        <Text style={styles.buttonText}>Safety Tips</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -145,132 +108,98 @@ const DriverScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingBottom: 80,
+    backgroundColor: "#F7F7F7",
   },
-  tabContainer: {
-    flexDirection: "row",
-    height: "20%",
+  searchContainer: {
+    padding: 20,
   },
-  scrollView: {
-    marginHorizontal: 5,
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2C3E50',
+    marginBottom: 20,
   },
-  row1: {
-    flexDirection: "row",
+  scrollViewContent: {
+    paddingBottom: 20,
   },
-  rightCln: {
-    flexDirection: "column",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  cancelButton: {
-    backgroundColor: "#000",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginRight: 5,
-  },
-  delButton: {
-    backgroundColor: "#f54e42",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginRight: 5,
-  },
-  shareButton: {
-    backgroundColor: "#21d111",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+  rideListContainer: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    marginHorizontal: 20,
     marginTop: 10,
-    marginRight: 10,
-    width: "80%",
-    alignItems: "center",
+    borderRadius: 15,
+    elevation: 3,
   },
-
-  trackButton: {
-    backgroundColor: "#21d111",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-
-  rideContainer: {
-    backgroundColor: "#f2f2f2",
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 8,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginHorizontal: 10,
-    marginVertical: 10,
+  rideCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#BDC3C7',
   },
   rideDetails: {
-    justifyContent: "center",
+    flex: 1,
   },
-  rideText: {
+  buttonsColumn: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  rideName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  rideDetail: {
     fontSize: 16,
-    color: "#333",
+    color: '#7F8C8D',
+    marginBottom: 4,
+  },
+  editButton: {
+    backgroundColor: "black",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 8,
+  },
+  priceContainer: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 3,
   },
   priceText: {
-    backgroundColor: "#ddd",
+    backgroundColor: "#ECF0F1",
     borderRadius: 4,
     padding: 8,
-    width: "90%",
-    alignItems: "center",
-    color: "#333",
-    fontWeight: "bold",
-  },
-  statusPriceContainer: {
-    alignItems: "center",
-    marginTop: 7,
-    justifyContent: "space-between",
-    width: "80%",
-    paddingHorizontal: 12,
-  },
-  statusText: {
-    backgroundColor: "#ddd",
-    borderRadius: 4,
-    padding: 4,
-    color: "#333",
-    fontWeight: "bold",
-  },
-  buttonGroup: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#21d111",
-    borderRadius: 4,
-    padding: 8,
-    marginHorizontal: 4,
-  },
-  buttonText: {
-    color: "#fff",
+    color: "#2C3E50",
     fontWeight: "bold",
   },
   addButton: {
     position: "absolute",
-    bottom: 60,
-    alignSelf: "center",
-  },
-  safetyButton: {
-    position: "absolute",
-    bottom: 10,
-    alignSelf: "center",
+    bottom: 80,
+    right: 20,
+    borderRadius: 50,
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
   },
   safetyTipsButton: {
     padding: 20,
-    backgroundColor: "#DDDDDD",
-    position: "absolute",
+    backgroundColor: 'black', 
+    position: 'absolute',
     bottom: 0,
-    width: "100%",
-    textAlign: "center",
+    width: '100%',
+    textAlign: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  buttonText: {
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
