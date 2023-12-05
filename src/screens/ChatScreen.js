@@ -69,6 +69,8 @@ const ChatScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: Platform.OS === "ios" ? 50 : 10,
+    marginBottom: Platform.OS === "ios" ? 15 : 5,
     backgroundColor: "white",
   },
   header: {
