@@ -23,6 +23,8 @@ import SafetyScreen from '../screens/SafetyScreen';
 import RideHistory from '../screens/RideHistory';
 import EditRide from '../screens/EditRide';
 import DriveHistory from '../screens/DriveHistory'
+import StartRide from '../screens/StartRide'
+import StatusScreen from '../screens/StatusScreen'
 
 
 const GlideBottomTab = createBottomTabNavigator();
@@ -174,7 +176,19 @@ function MainNavigator() {
       name="DriveHistory"
       component={DriveHistory}
       options={{headerShown:false}}/>
+      
+      <Stack.Screen
+      name="StartRide"
+      component={StartRide}
+      options={{headerShown:false}}/>
+      
+      <Stack.Screen
+      name="StatusScreen"
+      component={StatusScreen}
+      options={{headerShown:false}}/>
+
     </Stack.Navigator> 
+    
     
 
   );

@@ -80,6 +80,9 @@ const DriverScreen = ({ navigation }) => {
               <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("EditRide", {rideId: ride.id })}>
                 <Text style={styles.buttonText}>Edit</Text>
               </TouchableOpacity>
+              <TouchableOpacity style={styles.startRideButton} onPress={() => navigation.navigate("StartRide", {rideId: ride.id })}>
+                <Text style={styles.buttonText}>Start Ride</Text>
+                </TouchableOpacity>
               <View style={styles.priceContainer}>
                 <Text style={styles.priceText}>${ride.price}</Text>
               </View>
@@ -162,6 +165,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 8,
   },
+  startRideButton: {
+    backgroundColor: "#21d111",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 8,
+  },
+
   priceContainer: {
     alignItems: "center",
     justifyContent: "space-between",

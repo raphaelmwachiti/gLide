@@ -84,6 +84,14 @@ const RideHistory = ({ navigation }) => {
             >
               <Text style={styles.chatButtonText}>Chat</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.statusButton}
+                onPress={() =>
+                  navigation.navigate("StatusScreen", { rideId: ride.id })
+                }
+              >
+                <Text style={styles.statusButtonText}>Status</Text>
+              </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -140,7 +148,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   chatButton: {
-    backgroundColor: '#1e90ff', // Choose a color that fits your app's design
+    backgroundColor: '#21d111', // Choose a color that fits your app's design
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -148,6 +156,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   chatButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  statusButton: {
+    backgroundColor: 'black', // Choose a color that fits your app's design
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  statusButtonText: {
     color: '#ffffff',
     fontSize: 16,
   },
