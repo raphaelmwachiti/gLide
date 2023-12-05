@@ -1,40 +1,52 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import SafetyScreen from './SafetyScreen';
+import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 
 const ConfirmationScreen = ({ navigation }) => {
+  const { goBack } = useNavigation();
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.card}>
-        <Text style={styles.confirmationText}>Your ride has been confirmed</Text>
+      <View style={styles.container}>
+        <SafeAreaView style={styles.backButtonSafeArea}>
+          {/* Back button within SafeAreaView */}
+          <TouchableOpacity style={styles.backButton} onPress={() => goBack()}>
+            <AntDesign name="arrowleft" size={24} color="#333" />
+          </TouchableOpacity>
+        </SafeAreaView>
 
-        <View style={styles.profileInfo}>
-          <View style={styles.profileImgClmn}>
-            {/* Remove profile image */}
+        <View style={styles.card}>
+          <Text style={styles.confirmationText}>Confirmation</Text>
+
+          <View style={styles.profileInfo}>
+            <View style={styles.profileImgClmn}>
+              {/* Remove profile image */}
+            </View>
+            <View style={styles.profileDetailClmn}>
+              <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
+              <Text style={styles.profileDetail}>Messi Leo Goat</Text>
+              <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
+            </View>
           </View>
-          <View style={styles.profileDetailClmn}>
-            <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
-            <Text style={styles.profileDetail}>Messi Leo Goat</Text>
-            <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
+
+          <Text style={styles.aboutTitle}>About</Text>
+          <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
+          <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
+          <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
+          <Text style={styles.aboutDetail}> - Call 911 if you feel unsafe and contact support</Text>
+
+          <View style={styles.buttonContainer}>
+            {/* Share button removed */}
+            <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
+              <Text style={styles.buttonText}> Confirm Ride</Text>
+            </TouchableOpacity>
           </View>
-        </View>
 
-        <Text style={styles.aboutTitle}>About</Text>
-        <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
-        <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
-        <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
-        <Text style={styles.aboutDetail}> - Call 911 if you feel unsafe and contact support</Text>
-
-        <View style={styles.buttonContainer}>
-          {/* Share button removed */}
-          <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
-            <Text style={styles.buttonText}> Confirm Ride</Text>
+          <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate(SafetyScreen)}>
+            <Text style={styles.safetyTipsText}>Safety tips</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate(SafetyScreen)}>
-          <Text style={styles.safetyTipsText}>Safety tips</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -43,9 +55,12 @@ const ConfirmationScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
   },
   card: {
     backgroundColor: '#f0f0f0',
@@ -54,6 +69,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     maxWidth: 600,
+    position: 'relative',
+  },
+  backButtonSafeArea: {
+    position: 'absolute',
+    top: 20, // Adjust the top value for the SafeAreaView containing the back button
+    left: 10,
+    right: 10,
+    zIndex: 1,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    zIndex: 1,
   },
   confirmationText: {
     marginBottom: 20,
@@ -61,13 +90,6 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 24,
     fontWeight: 'bold',
-  },
-  titleText: {
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#333',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
   },
   profileInfo: {
     flexDirection: 'row',
@@ -80,14 +102,6 @@ const styles = StyleSheet.create({
   },
   profileDetailClmn: {
     width: '70%',
-  },
-  profileImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    marginLeft: -20,
-    borderWidth: 2,
-    borderColor: '#000',
   },
   profileName: {
     fontWeight: 'bold',
