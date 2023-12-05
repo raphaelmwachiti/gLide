@@ -76,6 +76,7 @@ const RideHistory = ({ navigation }) => {
               <Text style={styles.location}>Status: {ride.status}</Text>
             </View>
             <Text style={styles.fare}>Fare: ${ride.price}</Text>
+            <View style={styles.buttonsColumn}>
             <TouchableOpacity
               style={styles.chatButton}
               onPress={() =>
@@ -92,6 +93,7 @@ const RideHistory = ({ navigation }) => {
               >
                 <Text style={styles.statusButtonText}>Status</Text>
               </TouchableOpacity>
+              </View>
           </View>
         ))}
       </ScrollView>
@@ -163,6 +165,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
+  },
+  buttonsColumn: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   statusButton: {
     backgroundColor: 'black', // Choose a color that fits your app's design
