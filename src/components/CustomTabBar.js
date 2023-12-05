@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#DDD',
     borderRadius: 5,
-    marginTop: 20, 
+    marginTop: 60, 
     backgroundColor: '#DDD'
     
   },
