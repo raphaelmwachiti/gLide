@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
 
   startRideButton: {
-    backgroundColor: "#21d111",
+    backgroundColor: "black",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -170,6 +170,12 @@ const styles = StyleSheet.create({
   buttonsColumn: {
     flexDirection: 'column',
     alignItems: 'flex-end',
+  },
+
+  buttonText: {
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
