@@ -40,7 +40,7 @@ const RideHistory = ({ navigation }) => {
                 allowStops: ride.allowStops, // From the ride data
                 passengerLimit: ride.passengerLimit, // From the ride data
                 status: ride.status, // From the ride data
-                // Add any other relevant fields you need
+                dateTimeString: ride.dateTimeString,
               };
             } else {
               return null;
@@ -60,7 +60,7 @@ const RideHistory = ({ navigation }) => {
           <View key={ride.id} style={styles.rideItem}>
             <View style={styles.rideDetails}>
               {/* You'll need to handle date formatting */}
-              <Text style={styles.date}>Date: {/* Your date here */}</Text>
+              <Text style={styles.date}>Date: {ride.dateTimeString}</Text>
               <Text style={styles.time}>Time: {ride.time}</Text>
               <Text style={styles.location}>
                 From: {ride.from} To: {ride.to}
