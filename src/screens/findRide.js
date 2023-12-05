@@ -65,9 +65,15 @@ export default function FindRide({ navigation }) {
               style={styles.profilePic}
             />
             <View style={styles.rideDetails}>
-              <Text style={styles.rideInfo}>From: {ride.from}</Text>
-              <Text style={styles.rideInfo}>To: {ride.to}</Text>
-              <Text style={styles.rideInfo}>Price: ${ride.price}</Text>
+              <View style={styles.row}>
+                <Text style={styles.heading}>{ride.from} - {ride.to} </Text>
+              
+                
+              </View>
+            
+              <Text style={[styles.rideInfo, styles.priceText]}>
+                Price: ${ride.price}
+              </Text>
               <Text style={styles.rideInfo}>Departure: {ride.time}</Text>
               <Text style={styles.rideInfo}>
                 Passenger Limit: {ride.passengerLimit}
@@ -171,6 +177,17 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 16,
   },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 4,
+  },
+  heading: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "black",
+    marginRight: 8,
+  },
   rideName: {
     fontSize: 18,
     fontWeight: "bold",
@@ -188,7 +205,7 @@ const styles = StyleSheet.create({
   },
   bookButton: {
     flexDirection: "row",
-    backgroundColor: "#E74C3C",
+    backgroundColor: "#21d111",
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -196,7 +213,7 @@ const styles = StyleSheet.create({
   },
   reviewButton: {
     flexDirection: "row",
-    backgroundColor: "#21d111",
+    backgroundColor: "black",
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -205,12 +222,16 @@ const styles = StyleSheet.create({
   },
   safetyTipsButton: {
     padding: 20,
-    backgroundColor: "#21d111", // Green color
+    backgroundColor: "black", // Green color
     position: "absolute",
     bottom: 0,
     width: "100%",
     textAlign: "center",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  },
+  priceText: {
+    fontWeight: "bold",
+    color:"black"
   },
 });
