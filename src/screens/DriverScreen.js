@@ -10,10 +10,25 @@ import {
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import db from "@react-native-firebase/database";
+import { useNavigation } from '@react-navigation/native';
 
-const DriverScreen = ({ navigation }) => {
+const DriverScreen = ({ navigation, setShowTopNav }) => {
   const [rides, setRides] = useState([]);
 
+  useEffect(() => {
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      setShowTopNav(true);
+    });
+    const unsubscribeBlur = navigation.addListener('blur', () => {
+      setShowTopNav(false);
+    });
+  
+    return () => {
+      unsubscribeFocus();
+      unsubscribeBlur();
+    };
+  }, [navigation, setShowTopNav]);
+  
   useEffect(() => {
     const currentUser = auth().currentUser;
 

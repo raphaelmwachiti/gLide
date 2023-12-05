@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -27,10 +27,13 @@ const TopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 // Define your GlideBottomTabNavigator with screens specific to Glide
-function GlideBottomTabNavigator() {
+function GlideBottomTabNavigator({ setShowTopNav }) {
   return (
     <GlideBottomTab.Navigator>
-      <GlideBottomTab.Screen name="FindRide" component={FindRideScreen} options={{ headerShown: false }} />
+      <GlideBottomTab.Screen name="FindRide">
+        {(props) => <FindRideScreen {...props} setShowTopNav={setShowTopNav} />}
+      </GlideBottomTab.Screen>
+
       <GlideBottomTab.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
       <GlideBottomTab.Screen name="RideHistory" component={RideHistory} options={{ headerShown: false }} />
       {/* Add icons and other configurations as needed */}
@@ -39,10 +42,12 @@ function GlideBottomTabNavigator() {
 }
 
 // Define your DriveBottomTabNavigator with screens specific to Drive
-function DriveBottomTabNavigator() {
+function DriveBottomTabNavigator({ setShowTopNav }) {
   return (
     <DriveBottomTab.Navigator>
-      <DriveBottomTab.Screen name="Home" component={DriverScreen} options={{ headerShown: false }}/>
+      <DriveBottomTab.Screen name="Home">
+        {(props) => <DriverScreen {...props} setShowTopNav={setShowTopNav} />}
+      </DriveBottomTab.Screen>
       <DriveBottomTab.Screen name="RideRequest" component={RideRequestScreen} options={{ headerShown: false }} />
       {/* Add icons and other configurations as needed */}
     </DriveBottomTab.Navigator>
@@ -51,13 +56,19 @@ function DriveBottomTabNavigator() {
 
 // Top Bar Navigator that switches between Glide and Drive
 function TopBarNavigator() {
+  const [showTopNav, setShowTopNav] = useState(false);
   return (
-    <TopTab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
-      <TopTab.Screen name="Glide" component={GlideBottomTabNavigator} />
-      <TopTab.Screen name="Drive" component={DriveBottomTabNavigator} />
+<TopTab.Navigator tabBar={(props) => <CustomTabBar {...props} showTopNav={showTopNav} />} >
+      <TopTab.Screen name="Glide">
+        {() => <GlideBottomTabNavigator setShowTopNav={setShowTopNav} />}
+      </TopTab.Screen>
+      <TopTab.Screen name="Drive">
+        {() => <DriveBottomTabNavigator setShowTopNav={setShowTopNav} />}
+      </TopTab.Screen>
     </TopTab.Navigator>
   );
 }
+
 
 // Main Navigator that holds the Top Bar and Bottom Bar Navigators
 function MainNavigator() {

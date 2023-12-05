@@ -11,9 +11,25 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import db from "@react-native-firebase/database";
+import { useNavigation } from '@react-navigation/native';
 
-export default function FindRide({ navigation }) {
+export default function FindRide({ navigation, setShowTopNav }) {
   const [rides, setRides] = useState([]);
+
+  useEffect(() => {
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      setShowTopNav(true);
+    });
+    const unsubscribeBlur = navigation.addListener('blur', () => {
+      setShowTopNav(false);
+    });
+  
+    return () => {
+      unsubscribeFocus();
+      unsubscribeBlur();
+    };
+  }, [navigation, setShowTopNav]);
+  
 
   useEffect(() => {
     const ridesRef = db().ref("/rides");

@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const CustomTabBar = ({ state, descriptors, navigation }) => {
+const CustomTabBar = ({ state, descriptors, navigation, showTopNav }) => {
+  if (!showTopNav) {
+    // Return null or an empty View if you don't want to show the top navigation
+    return null;
+  }
+
   return (
     <View style={styles.segmentedControlContainer}>
       {state.routes.map((route, index) => {
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#DDD',
     borderRadius: 5,
-    marginTop: 60, 
+    marginTop: 50, 
     backgroundColor: '#DDD'
     
   },
