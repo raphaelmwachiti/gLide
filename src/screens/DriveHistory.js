@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
 
-const RideHistory = ({ navigation }) => {
+const DriveHistory = ({ navigation }) => {
   const pastRides = [
     { id: 1, date: 'January 1, 2023', time: '12:03 am', location: 'From: YMCA', fare: '$10.50' },
     { id: 2, date: 'February 15, 2023', time: '11:03 am', location: 'From: Starbucks', fare: '$15.75' },
@@ -11,7 +11,7 @@ const RideHistory = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Gliding History</Text>
+      <Text style={styles.header}>Driver History</Text>
       <ScrollView style={styles.activityList}>
         {pastRides.map((ride) => (
           <View key={ride.id} style={styles.rideItem}>
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default RideHistory;
+export default DriveHistory;
