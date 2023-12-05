@@ -66,6 +66,7 @@ const AddEditRideScreen = ({ navigation }) => {
         driver, // Add the driver's UID to the ride data
         price,
         status: "Open",
+        rider: null,
       });
       Alert.alert("Success", "Ride added successfully.");
       // Navigate to the 'Drive' screen or reset the form as needed

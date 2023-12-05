@@ -70,11 +70,10 @@ export default function FindRide({ navigation }) {
             />
             <View style={styles.rideDetails}>
               <View style={styles.row}>
-                <Text style={styles.heading}>{ride.from} - {ride.to} </Text>
-              
-                
+                <Text style={styles.heading}>
+                  {ride.from} - {ride.to}{" "}
+                </Text>
               </View>
-            
               <Text style={[styles.rideInfo, styles.priceText]}>
                 Price: ${ride.price}
               </Text>
@@ -89,7 +88,9 @@ export default function FindRide({ navigation }) {
             <View style={styles.actionButtons}>
               <TouchableOpacity
                 style={styles.bookButton}
-                onPress={() => navigation.navigate("ConfirmationScreen")}
+                onPress={() =>
+                  navigation.navigate("ConfirmationScreen", { rideId: ride.id })
+                }
               >
                 <MaterialIcons name="directions-car" size={24} color="#FFF" />
                 <Text style={[styles.buttonText, { marginLeft: 8 }]}>Book</Text>
@@ -236,6 +237,6 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontWeight: "bold",
-    color:"black"
+    color: "black",
   },
 });
