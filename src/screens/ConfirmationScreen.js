@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from "@expo/vector-icons";
@@ -51,7 +52,7 @@ const ConfirmationScreen = ({ route, navigation }) => {
   
       db().ref(`/rides/${rideId}`).update(updates)
         .then(() => {
-          // After successful update, navigate to TrackRideScreen with the rideId
+          // After a successful update, navigate to TrackRideScreen with the rideId
           navigation.navigate("TrackRideScreen", { rideId });
         })
         .catch((error) => {
@@ -69,37 +70,45 @@ const ConfirmationScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.card}>
-        <Text style={styles.confirmationText}>
-          Ride Information
-        </Text>
-
-        <Text style={styles.aboutTitle}>Ride Details</Text>
-        <Text style={styles.aboutDetail}>From: {ride.from}</Text>
-        <Text style={styles.aboutDetail}>To: {ride.to}</Text>
-        <Text style={styles.aboutDetail}>Time: {ride.time}</Text>
-        <Text style={styles.aboutDetail}>Driver: {ride.driver}</Text>
-        <Text style={styles.aboutDetail}>Price: ${ride.price}</Text>
-        <Text style={styles.aboutDetail}>Passenger Limit: {ride.passengerLimit}</Text>
-        <Text style={styles.aboutDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
-        <Text style={styles.aboutDetail}>Status: {ride.status}</Text>
-
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.trackButton}
-            onPress={confirmRide}
-          >
-            <Text style={styles.buttonText}> Confirm Ride</Text>
+      <View style={styles.container}>
+        <View style={styles.backButtonSafeArea}>
+          {/* Back button within SafeAreaView */}
+          <TouchableOpacity style={styles.backButton} onPress={() => goBack()}>
+            <AntDesign name="arrowleft" size={24} color="#333" />
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity
-          style={styles.safetyTipsButton}
-          onPress={() => navigation.navigate(SafetyScreen)}
-        >
-          <Text style={styles.safetyTipsText}>Safety tips</Text>
-        </TouchableOpacity>
+        <View style={styles.card}>
+          <Text style={styles.confirmationText}>
+            Ride Information
+          </Text>
+
+          <Text style={styles.aboutTitle}>Ride Details</Text>
+          <Text style={styles.aboutDetail}>From: {ride.from}</Text>
+          <Text style={styles.aboutDetail}>To: {ride.to}</Text>
+          <Text style={styles.aboutDetail}>Time: {ride.time}</Text>
+          <Text style={styles.aboutDetail}>Driver: {ride.driver}</Text>
+          <Text style={styles.aboutDetail}>Price: ${ride.price}</Text>
+          <Text style={styles.aboutDetail}>Passenger Limit: {ride.passengerLimit}</Text>
+          <Text style={styles.aboutDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
+          <Text style={styles.aboutDetail}>Status: {ride.status}</Text>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.trackButton}
+              onPress={confirmRide}
+            >
+              <Text style={styles.buttonText}> Confirm Ride</Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.safetyTipsButton}
+            onPress={() => navigation.navigate(SafetyScreen)}
+          >
+            <Text style={styles.safetyTipsText}>Safety tips</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

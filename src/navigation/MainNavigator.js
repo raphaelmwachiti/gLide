@@ -19,6 +19,7 @@ import LogInScreen from '../screens/LogScreen';
 import HomeScreen from '../screens/home';
 import SafetyScreen from '../screens/SafetyScreen';
 import RideHistory from '../screens/RideHistory';
+import EditRide from '../screens/EditRide';
 
 
 const GlideBottomTab = createBottomTabNavigator();
@@ -125,7 +126,12 @@ function MainNavigator() {
         component={RideHistory}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+      name="EditRide"
+      component={EditRide}
+      options={{headerShown:false}}/>
     </Stack.Navigator>
+
   );
 }
 
