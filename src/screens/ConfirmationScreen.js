@@ -7,66 +7,87 @@ import {
   SafeAreaView,
   Alert,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import db from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
 
+const fetchRideData = async (rideId, setRide) => {
+  try {
+    const snapshot = await db().ref(`/rides/${rideId}`).once("value");
+    const rideData = snapshot.val();
+    if (rideData) {
+      setRide({ id: rideId, ...rideData });
+    } else {
+      console.log("Ride data not found.");
+    }
+  } catch (error) {
+    console.error("Error fetching ride data: ", error);
+  }
+};
+
 const ConfirmationScreen = ({ route, navigation }) => {
   const [ride, setRide] = useState(null);
+  const [riderName, setRiderName] = useState("");
   const { rideId } = route.params;
+  const { goBack } = useNavigation();
 
   useEffect(() => {
-    if (rideId) {
-      const rideRef = db().ref(`/rides/${rideId}`);
+    fetchRideData(rideId, setRide);
+  }, [rideId]);
 
-      rideRef
+  useEffect(() => {
+    // Fetch the rider's name as soon as the component mounts
+    const currentUser = auth().currentUser;
+
+    if (currentUser) {
+      const uid = currentUser.uid;
+      db()
+        .ref(`/users/${uid}/name`)
         .once("value")
         .then((snapshot) => {
-          const rideData = snapshot.val();
-          if (rideData) {
-            setRide({ id: rideId, ...rideData });
+          const userName = snapshot.val();
+          if (userName) {
+            setRiderName(userName); // Store the rider's name in state
           } else {
-            console.log("Ride data not found.");
+            console.log("User name is not set in the database.");
           }
         })
         .catch((error) => {
-          console.error("Error fetching ride data: ", error);
+          console.error("Error fetching user data: ", error);
         });
     }
-  }, [rideId]);
-
-  // If ride data has not been loaded yet, you can return null or a loading spinner here
-  if (!ride) {
-    return <Text>Loading ride details...</Text>; // Or a proper loading spinner/indicator
-  }
+  }, []);
 
   const confirmRide = () => {
-    const currentUser = auth().currentUser;
-  
-    if (ride && rideId && currentUser) {
+    // Only attempt to confirm the ride if the riderName has been set
+    if (ride && rideId && riderName) {
       const updates = {
-        status: 'Booked',
-        rider: currentUser.uid // Assuming you want to store the UID of the rider
+        status: "Booked",
+        rider: riderName, // Use the rider's name from state
       };
-  
-      db().ref(`/rides/${rideId}`).update(updates)
+
+      db()
+        .ref(`/rides/${rideId}`)
+        .update(updates)
         .then(() => {
-          // After a successful update, navigate to TrackRideScreen with the rideId
           navigation.navigate("TrackRideScreen", { rideId });
         })
         .catch((error) => {
-          // Handle any errors here
           console.error("Error updating ride status: ", error);
           Alert.alert("Error", "Could not confirm the ride. Please try again.");
         });
     } else {
-      // Handle the case where there is no ride, rideId, or currentUser
-      Alert.alert("Error", "There was an error confirming the ride. Please make sure you're signed in and try again.");
+      Alert.alert(
+        "Error",
+        "There was an error confirming the ride. Please make sure you're signed in and try again."
+      );
     }
   };
-  
-  const { goBack } = useNavigation();
+
+  if (!ride) {
+    return <Text>Loading ride details...</Text>;
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -79,9 +100,7 @@ const ConfirmationScreen = ({ route, navigation }) => {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.confirmationText}>
-            Ride Information
-          </Text>
+          <Text style={styles.confirmationText}>Ride Information</Text>
 
           <Text style={styles.aboutTitle}>Ride Details</Text>
           <Text style={styles.aboutDetail}>From: {ride.from}</Text>
@@ -89,15 +108,16 @@ const ConfirmationScreen = ({ route, navigation }) => {
           <Text style={styles.aboutDetail}>Time: {ride.time}</Text>
           <Text style={styles.aboutDetail}>Driver: {ride.driver}</Text>
           <Text style={styles.aboutDetail}>Price: ${ride.price}</Text>
-          <Text style={styles.aboutDetail}>Passenger Limit: {ride.passengerLimit}</Text>
-          <Text style={styles.aboutDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
+          <Text style={styles.aboutDetail}>
+            Passenger Limit: {ride.passengerLimit}
+          </Text>
+          <Text style={styles.aboutDetail}>
+            Allow Stops: {ride.allowStops ? "Yes" : "No"}
+          </Text>
           <Text style={styles.aboutDetail}>Status: {ride.status}</Text>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.trackButton}
-              onPress={confirmRide}
-            >
+            <TouchableOpacity style={styles.trackButton} onPress={confirmRide}>
               <Text style={styles.buttonText}> Confirm Ride</Text>
             </TouchableOpacity>
           </View>
@@ -117,7 +137,7 @@ const ConfirmationScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   container: {
     flex: 1,
@@ -132,17 +152,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
     maxWidth: 600,
-    position: 'relative',
+    position: "relative",
   },
   backButtonSafeArea: {
-    position: 'absolute',
+    position: "absolute",
     top: 20, // Adjust the top value for the SafeAreaView containing the back button
     left: 10,
     right: 10,
     zIndex: 1,
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 5,
     left: 5,
     zIndex: 1,
