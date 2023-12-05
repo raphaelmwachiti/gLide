@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   toggleButtonActive: {
-    backgroundColor: "blue",
+    backgroundColor: "black",
   },
   toggleButtonTextActive: {
     // styles for when the button text is active/selected

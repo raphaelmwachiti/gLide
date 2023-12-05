@@ -13,7 +13,7 @@ import db from "@react-native-firebase/database";
 const EditRide = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { rides } = route.params; // Assuming you pass the ride ID instead
+  const { rideId } = route.params;
 
   const [editedRide, setEditedRide] = useState({
     from: "",
@@ -24,8 +24,7 @@ const EditRide = () => {
   });
 
   useEffect(() => {
-    // Fetch ride details from the database using rideId
-    const ridesRef = db().ref(`/rides/${rides}`);
+    const ridesRef = db().ref(`/rides/${rideId}`);
     ridesRef.once("value", (snapshot) => {
       const rideData = snapshot.val();
       if (rideData) {
@@ -38,19 +37,17 @@ const EditRide = () => {
         });
       } else {
         console.log("Ride not found in the database");
-        // Handle the case when the ride is not found
       }
     });
-  }, [rides]);
+  }, [rideId]);
 
   const handleSaveChanges = () => {
-    // Update the ride details in the database
-    const ridesRef = db().ref(`/rides/${rides}`);
+    const ridesRef = db().ref(`/rides/${rideId}`);
     ridesRef
       .update(editedRide)
       .then(() => {
         console.log("Ride details updated successfully");
-        navigation.goBack(); // Navigate back to DriverScreen
+        navigation.goBack();
       })
       .catch((error) => {
         console.error("Error updating ride details: ", error);
@@ -68,7 +65,55 @@ const EditRide = () => {
         onChangeText={(text) => setEditedRide({ ...editedRide, from: text })}
       />
 
-      {/* Add similar TextInput components for other ride details... */}
+      <TextInput
+        style={styles.input}
+        placeholder="To"
+        value={editedRide.to}
+        onChangeText={(text) => setEditedRide({ ...editedRide, to: text })}
+      />
+
+      <View style={styles.toggleContainer}>
+        <Text style={styles.toggleLabel}>Allow stops:</Text>
+        <TouchableOpacity
+          style={[styles.toggleButton, editedRide.allowStops ? styles.toggleButtonActive : null]}
+          onPress={() => setEditedRide({ ...editedRide, allowStops: true })}
+        >
+          <Text style={[styles.toggleButtonText, editedRide.allowStops ? styles.toggleButtonTextActive : null]}>
+            Yes
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.toggleButton, !editedRide.allowStops ? styles.toggleButtonActive : null]}
+          onPress={() => setEditedRide({ ...editedRide, allowStops: false })}
+        >
+          <Text style={[styles.toggleButtonText, !editedRide.allowStops ? styles.toggleButtonTextActive : null]}>
+            No
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Time"
+        value={editedRide.time}
+        onChangeText={(text) => setEditedRide({ ...editedRide, time: text })}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Passenger Limit"
+        keyboardType="numeric"
+        value={editedRide.passengerLimit}
+        onChangeText={(text) => setEditedRide({ ...editedRide, passengerLimit: text.replace(/[^0-9]/g, "") })}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Price"
+        keyboardType="numeric"
+        value={editedRide.price}
+        onChangeText={(text) => setEditedRide({ ...editedRide, price: text })}
+      />
 
       <TouchableOpacity
         style={styles.saveButton}
@@ -80,40 +125,100 @@ const EditRide = () => {
   );
 };
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
+    backgroundColor: "#fff",
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    textAlign: "center",
+    marginVertical: 20,
+    color: "#2C3E50",
+  },
+  warningText: {
+    textAlign: "center",
+    marginTop: 30,
+    margin: 10,
+    color: "red",
+  },
+  form: {
+    padding: 20,
   },
   input: {
-    height: 40,
-    borderColor: "gray",
     borderWidth: 1,
-    marginBottom: 20,
+    borderColor: "#ddd",
     padding: 10,
-    width: "100%",
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  toggleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  toggleLabel: {
+    fontSize: 16,
+  },
+  toggleButton: {
+    backgroundColor: "#eee",
+    padding: 10,
+    borderRadius: 5,
+  },
+  toggleButtonActive: {
+    backgroundColor: "black",
+  },
+  toggleButtonTextActive: {
+    color: "white",
+  },
+  earningsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "#f7f7f7",
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  earningsText: {
+    fontSize: 16,
+  },
+  priceText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  confirmButton: {
+    backgroundColor: "#21d111",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginBottom: 10,
   },
   saveButton: {
     backgroundColor: "#21d111",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    padding: 15,
     borderRadius: 5,
-    marginTop: 10,
-    width: "80%",
     alignItems: "center",
+    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: 16,
   },
+  safetyTipsButton: {
+    padding: 15,
+    backgroundColor: "#ddd",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  safetyTipsText: {
+    fontSize: 16,
+  },
+  // Add more styles as needed
 });
-
 export default EditRide;
