@@ -1,52 +1,52 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import SafetyScreen from './SafetyScreen';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 
 const ConfirmationScreen = ({ navigation }) => {
+  const { goBack } = useNavigation();
+
   return (
     <SafeAreaView style={styles.safeArea}>
-        <Image
-            source={require('../assets/confirm.jpg')} 
-            style={styles.confirmationImage}
-            />
-        <Text style={styles.confirmationText}>Your ride has been confirmed</Text>
-
-      <View style={styles.card}>
-        <Text style={styles.titleText}> Ride details</Text>
-        <View style={styles.profileInfo}> 
-          <View style={styles.profileImgClmn}>
-            <Image
-            source={require('../assets/pp.jpg')} 
-            style={styles.profileImage}
-            />
-          </View>
-          <View style={styles.profileDetailClmn}> 
-            <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
-            <Text style={styles.profileDetail}>Messi Leo Goat</Text>
-            <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
-          </View>
-        </View>
-
-        <Text style={styles.aboutTitle}>About</Text>
-        <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
-        <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
-        <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
-        <Text style={styles.aboutDetail}> - Call 911 us you feel unsafe and contact support</Text>
-       
-
-        <View style={styles.buttonContainer}>
-            {/* on click the share button should show on screeen pop up asking for phone number and email of desired reciept */}
-          <TouchableOpacity style={styles.shareButton} >
-            <Text style={styles.buttonText}> Share ride details with family or freind</Text>
+      <View style={styles.container}>
+        <SafeAreaView style={styles.backButtonSafeArea}>
+          {/* Back button within SafeAreaView */}
+          <TouchableOpacity style={styles.backButton} onPress={() => goBack()}>
+            <AntDesign name="arrowleft" size={24} color="#333" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
-            <Text style={styles.buttonText}> Proceed to track your ride</Text>
+        </SafeAreaView>
+
+        <View style={styles.card}>
+          <Text style={styles.confirmationText}>Confirmation</Text>
+
+          <View style={styles.profileInfo}>
+            <View style={styles.profileImgClmn}>
+              {/* Remove profile image */}
+            </View>
+            <View style={styles.profileDetailClmn}>
+              <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
+              <Text style={styles.profileDetail}>Messi Leo Goat</Text>
+              <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
+            </View>
+          </View>
+
+          <Text style={styles.aboutTitle}>About</Text>
+          <Text style={styles.aboutDetail}> - Vehicle is bright Pink and should have green rims</Text>
+          <Text style={styles.aboutDetail}> - The plate number is 345GGf </Text>
+          <Text style={styles.aboutDetail}> - Driver phone number is 350898984 </Text>
+          <Text style={styles.aboutDetail}> - Call 911 if you feel unsafe and contact support</Text>
+
+          <View style={styles.buttonContainer}>
+            {/* Share button removed */}
+            <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('TrackRideScreen')}>
+              <Text style={styles.buttonText}> Confirm Ride</Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate(SafetyScreen)}>
+            <Text style={styles.safetyTipsText}>Safety tips</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate(SafetyScreen)}>
-          <Text style={styles.safetyTipsText}>Safety tips</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -55,55 +55,53 @@ const ConfirmationScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', 
   },
   card: {
-    backgroundColor: '#f0f0f0', 
+    backgroundColor: '#f0f0f0',
     borderRadius: 8,
     padding: 20,
-    alignItems: 'center', 
+    alignItems: 'center',
     width: '90%',
-    maxWidth: 600, 
+    maxWidth: 600,
+    position: 'relative',
   },
-  confirmationImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 60,
-    marginBottom: 10,
+  backButtonSafeArea: {
+    position: 'absolute',
+    top: 20, // Adjust the top value for the SafeAreaView containing the back button
+    left: 10,
+    right: 10,
+    zIndex: 1,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    zIndex: 1,
   },
   confirmationText: {
     marginBottom: 20,
     textAlign: 'center',
     color: '#333',
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-  }, 
-  titleText: { 
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#333',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline'
   },
   profileInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 6, 
+    marginHorizontal: 6,
   },
-  profileImgClmn: { 
-    width: '20%'
-  }, 
+  profileImgClmn: {
+    width: '20%',
+  },
   profileDetailClmn: {
-    width: '70%'
-  },
-  profileImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 60,
-    marginLeft: -20
+    width: '70%',
   },
   profileName: {
     fontWeight: 'bold',
@@ -131,32 +129,26 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-around',
   },
-  shareButton: {
-    backgroundColor: '#000', 
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
   trackButton: {
-    backgroundColor: '#21d111', 
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10, 
+    backgroundColor: '#21d111',
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
-  }, 
+    fontSize: 16,
+  },
   safetyTipsButton: {
-    marginTop:10,
+    marginTop: 20,
   },
   safetyTipsText: {
     fontWeight: 'bold',
-    color: '#21d111', 
+    color: 'black',
   },
-  
 });
 
 export default ConfirmationScreen;
