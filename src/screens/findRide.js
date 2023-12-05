@@ -11,11 +11,13 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import db from "@react-native-firebase/database";
+import auth from "@react-native-firebase/auth";
 
 export default function FindRide({ navigation }) {
   const [rides, setRides] = useState([]);
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleSearch = () => {
     // Implement your search logic here using the 'location' and 'destination' values
@@ -31,20 +33,31 @@ export default function FindRide({ navigation }) {
   };
 
   useEffect(() => {
-    const ridesRef = db().ref("/rides");
+    const user = auth().currentUser;
+    if (user) {
+      const userRef = db().ref(`/users/${user.uid}/name`);
+      userRef.once("value").then((snapshot) => {
+        setCurrentUser(snapshot.val()); // This will contain the user's name
+      });
+    }
+  }, []);
 
+  useEffect(() => {
+    const ridesRef = db().ref("/rides");
+  
     const onValueChange = ridesRef.on(
       "value",
       (snapshot) => {
         const ridesData = snapshot.val();
         if (ridesData) {
-          const openRidesArray = Object.keys(ridesData)
+          const filteredRidesArray = Object.keys(ridesData)
             .map((key) => {
               const ride = { id: key, ...ridesData[key] };
-              return ride.status === "Open" ? ride : null;
+              // Exclude rides where the current user is the driver
+              return ride.status === "Open" && ride.driver !== currentUser ? ride : null;
             })
             .filter(Boolean); // This will filter out any `null` entries from the array
-          setRides(openRidesArray);
+          setRides(filteredRidesArray);
         } else {
           setRides([]);
         }
@@ -53,10 +66,10 @@ export default function FindRide({ navigation }) {
         console.error("Error fetching ride data: ", error);
       }
     );
-
+  
     // Clean up the listener when the component unmounts
     return () => ridesRef.off("value", onValueChange);
-  }, []);
+  }, [currentUser]);
 
   return (
     <SafeAreaView style={styles.container}>
