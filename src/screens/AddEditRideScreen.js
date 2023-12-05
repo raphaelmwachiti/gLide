@@ -58,7 +58,8 @@ const AddEditRideScreen = ({ navigation }) => {
     }
 
     const dateTime = new Date(date);
-    const dateTimeString = `${dateTime.toISOString().split("T")[0]} ${timeDate}`;
+    const dateTimeString1 = `${dateTime.toISOString().split("T")[0]} ${date}`;
+    const dateTimeString = dateTimeString1.substring(0, 10);
 
     // Add ride to Firebase Database
     const newRideRef = db().ref("/rides").push();
@@ -74,6 +75,7 @@ const AddEditRideScreen = ({ navigation }) => {
         price,
         status: "Open",
         rider: null,
+        dateTimeString,
       });
       Alert.alert("Success", "Ride added successfully.");
       // Navigate to the 'Drive' screen or reset the form as needed

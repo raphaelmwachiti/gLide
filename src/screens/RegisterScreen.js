@@ -43,7 +43,7 @@ export default function RegisterScreen() {
     return (
       <View style={styles.container}>
         <StatusBar style="light" />
-        <Image style={styles.backgroundImage} source={require("../assets/glide.png")} />
+        <Image style={styles.backgroundImage} source={require("../assets/logo.png")} />
   
         <View style={styles.titleAndFormContainer}>
           <View style={styles.titleContainer}>
@@ -109,11 +109,11 @@ const styles = StyleSheet.create({
     
     height: 300,
     width: 300,
-    flex: 0.75,
+    flex: 1,
     resizeMode: 'contain',
     alignContent:'center',
-    marginHorizontal:75,
-    marginTop:150,
+    marginHorizontal:50,
+    marginTop:100,
   },
   titleAndFormContainer: {
     flex: 1,

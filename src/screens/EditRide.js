@@ -33,14 +33,19 @@ const EditRide = () => {
     ridesRef.once("value", (snapshot) => {
       const rideData = snapshot.val();
       if (rideData) {
+        const dateTime = new Date(rideData.timeDate); // Use the appropriate property here
+        const dateTimeString1 = `${dateTime.toISOString().split("T")[0]} ${rideData.time}`;
+        const dateTimeString = dateTimeString1.substring(0, 10);
+  
         setEditedRide({
           from: rideData.from,
           to: rideData.to,
-          date: new Date(),
+          date: new Date(), // Set a new date value here
           time: rideData.time,
           passengerLimit: rideData.passengerLimit,
           price: rideData.price,
           timeDate: rideData.timeDate,
+          dateTimeString: dateTimeString,
         });
       } else {
         console.log("Ride not found in the database");
@@ -143,18 +148,6 @@ const EditRide = () => {
         value={editedRide.time}
         onChangeText={(text) => setEditedRide({ ...editedRide, time: text })}
       />
-      
-      <View style={styles.datePickerContainer}>
-    <Text style={styles.datePickerLabel}>Date:</Text>
-    <DatePicker
-      style={styles.datePicker}
-      date={editedRide.date}
-      mode="date"
-      format="YYYY-MM-DD"
-      onDateChange={(newDate) => setEditedRide({ ...editedRide, date: newDate })}
-    />
-  </View>
-
   <TextInput
     style={styles.input}
     placeholder="Time"
