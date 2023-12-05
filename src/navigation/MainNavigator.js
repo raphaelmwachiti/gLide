@@ -22,6 +22,7 @@ import HomeScreen from '../screens/home';
 import SafetyScreen from '../screens/SafetyScreen';
 import RideHistory from '../screens/RideHistory';
 import EditRide from '../screens/EditRide';
+import DriveHistory from '../screens/DriveHistory'
 
 
 const GlideBottomTab = createBottomTabNavigator();
@@ -39,7 +40,7 @@ function GlideBottomTabNavigator({ setShowTopNav }) {
           if (route.name === 'FindRide') {
             iconName = focused ? 'ios-search' : 'ios-search-outline';
           } else if (route.name === 'RideHistory') {
-            iconName = focused ? 'ios-time' : 'ios-time-outline';
+            iconName = focused ? 'ios-people' : 'ios-people-outline';
           }
           // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
@@ -68,8 +69,8 @@ function DriveBottomTabNavigator({ setShowTopNav }) {
 
           if (route.name === 'Home') {
             iconName = focused ? 'ios-car' : 'ios-car-outline';
-          } else if (route.name === 'RideRequest') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
+          } else if (route.name === 'DriveHistory') {
+            iconName = focused ? 'ios-person' : 'ios-person';
           }
           // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
@@ -83,7 +84,7 @@ function DriveBottomTabNavigator({ setShowTopNav }) {
       <DriveBottomTab.Screen name="Home" options={{ headerShown: false }}>
         {(props) => <DriverScreen {...props} setShowTopNav={setShowTopNav} />}
       </DriveBottomTab.Screen>
-      <DriveBottomTab.Screen name="RideRequest" component={RideRequestScreen} options={{ headerShown: false }} />
+      <DriveBottomTab.Screen name="DriveHistory" component={DriveHistory} options={{ headerShown: false }} />
       {/* ... other screens if any */}
     </DriveBottomTab.Navigator>
   );
@@ -167,8 +168,14 @@ function MainNavigator() {
       <Stack.Screen
       name="EditRide"
       component={EditRide}
+      options={{headerShown:false}}/> 
+      
+      <Stack.Screen
+      name="DriveHistory"
+      component={DriveHistory}
       options={{headerShown:false}}/>
-    </Stack.Navigator>
+    </Stack.Navigator> 
+    
 
   );
 }

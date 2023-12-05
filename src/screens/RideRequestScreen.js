@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 15,
+   
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center'
   },

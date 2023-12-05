@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
   return (
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#DDD',
     borderRadius: 5,
-    marginTop: 60, 
+    marginTop: Platform.OS === "ios" ? 60 : 25, 
     backgroundColor: '#DDD'
     
   },
