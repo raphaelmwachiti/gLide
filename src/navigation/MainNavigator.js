@@ -3,6 +3,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
+
 
 
 import AddEditRideScreen from '../screens/AddEditRideScreen';
@@ -19,36 +21,73 @@ import LogInScreen from '../screens/LogScreen';
 import HomeScreen from '../screens/home';
 import SafetyScreen from '../screens/SafetyScreen';
 import RideHistory from '../screens/RideHistory';
-import EditRide from '../screens/EditRide'
+import EditRide from '../screens/EditRide';
+
 
 const GlideBottomTab = createBottomTabNavigator();
 const DriveBottomTab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-// Define your GlideBottomTabNavigator with screens specific to Glide
-function GlideBottomTabNavigator() {
+function GlideBottomTabNavigator({ setShowTopNav }) {
   return (
-    <GlideBottomTab.Navigator>
-      <GlideBottomTab.Screen name="FindRide" component={FindRideScreen} options={{ headerShown: false }} />
-      <GlideBottomTab.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
+    <GlideBottomTab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'FindRide') {
+            iconName = focused ? 'ios-search' : 'ios-search-outline';
+          } else if (route.name === 'RideHistory') {
+            iconName = focused ? 'ios-time' : 'ios-time-outline';
+          }
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#21d111',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <GlideBottomTab.Screen name="FindRide" options={{ headerShown: false }}>
+        {(props) => <FindRideScreen {...props} setShowTopNav={setShowTopNav} />}
+      </GlideBottomTab.Screen>
       <GlideBottomTab.Screen name="RideHistory" component={RideHistory} options={{ headerShown: false }} />
-      {/* Add icons and other configurations as needed */}
+      {/* ... other screens if any */}
     </GlideBottomTab.Navigator>
   );
 }
 
-// Define your DriveBottomTabNavigator with screens specific to Drive
-function DriveBottomTabNavigator() {
+function DriveBottomTabNavigator({ setShowTopNav }) {
   return (
-    <DriveBottomTab.Navigator>
-      <DriveBottomTab.Screen name="Home" component={DriverScreen} options={{ headerShown: false }}/>
+    <DriveBottomTab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'ios-car' : 'ios-car-outline';
+          } else if (route.name === 'RideRequest') {
+            iconName = focused ? 'ios-list' : 'ios-list-outline';
+          }
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#21d111',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <DriveBottomTab.Screen name="Home" options={{ headerShown: false }}>
+        {(props) => <DriverScreen {...props} setShowTopNav={setShowTopNav} />}
+      </DriveBottomTab.Screen>
       <DriveBottomTab.Screen name="RideRequest" component={RideRequestScreen} options={{ headerShown: false }} />
-      {/* Add icons and other configurations as needed */}
+      {/* ... other screens if any */}
     </DriveBottomTab.Navigator>
   );
 }
-
 // Top Bar Navigator that switches between Glide and Drive
 function TopBarNavigator() {
   return (
@@ -125,12 +164,12 @@ function MainNavigator() {
         component={RideHistory}
         options={{ headerShown: false }}
       />
-            <Stack.Screen 
-        name="EditRide" 
-        component={EditRide}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen
+      name="EditRide"
+      component={EditRide}
+      options={{headerShown:false}}/>
     </Stack.Navigator>
+
   );
 }
 

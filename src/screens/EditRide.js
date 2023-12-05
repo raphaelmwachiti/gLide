@@ -9,6 +9,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import db from "@react-native-firebase/database";
 import DatePicker from 'react-native-date-picker';
@@ -97,6 +98,9 @@ const EditRide = () => {
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Edit Ride</Text>
+      
+      <TouchableOpacity style={styles.backButton}></TouchableOpacity>
+
 
       <TextInput
         style={styles.input}
@@ -104,6 +108,7 @@ const EditRide = () => {
         value={editedRide.from}
         onChangeText={(text) => setEditedRide({ ...editedRide, from: text })}
       />
+
 
       <TextInput
         style={styles.input}
@@ -311,5 +316,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    zIndex: 1,
+  },
 });
 export default EditRide;

@@ -1,51 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import MapView from 'react-native-maps';
 import SafetyScreen from './SafetyScreen';
+import db from "@react-native-firebase/database";
 
-import FindRide from './findRide';
+const TrackRideScreen = ({ route, navigation }) => {
+    const [ride, setRide] = useState(null);
+    const { rideId } = route.params;
 
-const TrackRideScreen = ({ navigation }) => {
+  useEffect(() => {
+    const rideRef = db().ref(`/rides/${rideId}`);
+    rideRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      setRide(data);
+    });
+
+    // Don't forget to unsubscribe from your real-time listener on unmount
+    return () => rideRef.off('value');
+  }, [rideId]);
+
+  if (!ride) {
+    return <Text>Loading ride details...</Text>; // Or a proper loading spinner/indicator
+  }
+
+
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        {/* Home button within SafeAreaView */}
-        <SafeAreaView style={styles.homeButtonSafeArea}>
-          <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate(FindRide)}>
-            <Text style={styles.homeButtonText}>Home</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
+      <View style={styles.card}>
+        <Text style={styles.titleText}>Ride Details</Text>
 
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
-
-        <View style={styles.card}>
-          <Text style={styles.titleText}>Ride details</Text>
-          <View style={styles.profileInfo}>
-            <View style={styles.profileImgClmn}>
-              <Image source={require('../assets/pp.jpg')} style={styles.profileImage} />
-            </View>
-            <View style={styles.profileDetailClmn}>
-              <Text style={styles.profileName}>Lambo Urus - 5.767$</Text>
-              <Text style={styles.profileDetail}>Messi Leo Goat</Text>
-              <Text style={styles.profileDetail}>(add star emo) 2/7 - silver</Text>
-            </View>
+        <View style={styles.profileInfo}> 
+        <View style={styles.profileDetailClmn}> 
+            <Text style={styles.profileName}>{ride.from} - {ride.to}</Text>
+            <Text style={styles.profileDetail}>Price: ${ride.price}</Text>
+            <Text style={styles.profileDetail}>Time: {ride.time}</Text>
+            <Text style={styles.profileDetail}>Driver: {ride.driver}</Text>
+            <Text style={styles.profileDetail}>Passenger Limit: {ride.passengerLimit}</Text>
+            <Text style={styles.profileDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
+            <Text style={styles.profileDetail}>Status: {ride.status}</Text>
           </View>
+        </View>
 
-          <Text style={styles.aboutTitle}>Live updates</Text>
-          <Text style={styles.aboutDetail}>- Appears to be heavy traffic</Text>
-          <Text style={styles.aboutDetail}>- Messi is rerouting</Text>
-          <Text style={styles.aboutDetail}>- The plate number is 345GGf </Text>
-          <Text style={styles.aboutDetail}>- His car is bright Pink and should have green rims </Text>
-          <Text style={styles.aboutDetail}>- Be mindful of your ride </Text>
-          <Text style={styles.aboutDetail}>- Call 911 us you feel unsafe and contact support</Text>
+        <Text style={styles.aboutDetail}> - Be mindful of your ride </Text>
+        <Text style={styles.aboutDetail}> - Call 911 us you feel unsafe and contact support</Text>
+       
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
@@ -64,7 +62,6 @@ const TrackRideScreen = ({ navigation }) => {
             <Text style={styles.safetyTipsText}>Safety tips</Text>
           </TouchableOpacity>
         </View>
-      </View>
     </SafeAreaView>
   );
 };
@@ -73,6 +70,8 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     flex: 1,

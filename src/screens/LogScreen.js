@@ -38,10 +38,12 @@ export default function LogInScreen() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
+      
       <Image
-        style={styles.backgroundImage}
-        source={require("../assets/backgroundimage.jpeg")}
-      />
+      style={styles.backgroundImage}
+      source={require("../assets/glide.png")}/>
+      
+
 
       <View style={styles.titleAndFormContainer}>
         <View style={styles.titleContainer}>
@@ -52,16 +54,17 @@ export default function LogInScreen() {
             <TextInput
             style={styles.inputText}
               placeholder="Email"
-              placeholderTextColor={"gray"}
+              placeholderTextColor={"white"}
               value={email}
               onChangeText={setEmail} // Bind state setter
+              
             />
           </View>
           <View style={[styles.inputContainer, styles.mbPassword]}>
             <TextInput
             style={styles.inputText}
               placeholder="Password"
-              placeholderTextColor={"gray"}
+              placeholderTextColor={"white"}
               secureTextEntry
               value={password}
               onChangeText={setPassword} // Bind state setter
@@ -78,7 +81,7 @@ export default function LogInScreen() {
           </View>
 
           <View style={styles.justifyCenter}>
-          <Text style={styles.inputText}>Don't have an account?</Text>
+          <Text style={styles.signupText}>Don't have an account?</Text>
             <TouchableOpacity onPress={() => navigation.push("Register")}>
               <Text style={styles.signupText}>Register</Text>
             </TouchableOpacity>
@@ -95,16 +98,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   backgroundImage: {
-    ...StyleSheet.absoluteFillObject,
-    height: undefined,
-    width: undefined,
-    flex: 1,
+    
+    height: 300,
+    width: 300,
+    flex: 0.75,
+    resizeMode: 'contain',
+    alignContent:'center',
+    marginHorizontal:75,
+    marginTop:150,
   },
   titleAndFormContainer: {
     flex: 1,
     justifyContent: "space-around",
     paddingTop: 40,
     paddingBottom: 10,
+    justifyContent: "space-around",
   },
   titleContainer: {
     flex: 1,
@@ -116,6 +124,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 20, // Increase the margin for more space on each side
     marginBottom: 10,
+    marginTop:-400,
   },
   inputContainer: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   signupText: {
-    color: "#00BFFF",
+    color: "black",
   },
   inputText: {
     color: "white",
