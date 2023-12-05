@@ -3,6 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 
 import AddEditRideScreen from '../screens/AddEditRideScreen';
@@ -26,30 +27,62 @@ const DriveBottomTab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-// Define your GlideBottomTabNavigator with screens specific to Glide
 function GlideBottomTabNavigator({ setShowTopNav }) {
   return (
-    <GlideBottomTab.Navigator>
-      <GlideBottomTab.Screen name="FindRide">
+    <GlideBottomTab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'FindRide') {
+            iconName = focused ? 'ios-search' : 'ios-search-outline';
+          } else if (route.name === 'RideHistory') {
+            iconName = focused ? 'ios-time' : 'ios-time-outline';
+          }
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#21d111',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <GlideBottomTab.Screen name="FindRide" options={{ headerShown: false }}>
         {(props) => <FindRideScreen {...props} setShowTopNav={setShowTopNav} />}
       </GlideBottomTab.Screen>
-
-      <GlideBottomTab.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
       <GlideBottomTab.Screen name="RideHistory" component={RideHistory} options={{ headerShown: false }} />
-      {/* Add icons and other configurations as needed */}
+      {/* ... other screens if any */}
     </GlideBottomTab.Navigator>
   );
 }
 
-// Define your DriveBottomTabNavigator with screens specific to Drive
 function DriveBottomTabNavigator({ setShowTopNav }) {
   return (
-    <DriveBottomTab.Navigator>
-      <DriveBottomTab.Screen name="Home">
+    <DriveBottomTab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'ios-car' : 'ios-car-outline';
+          } else if (route.name === 'RideRequest') {
+            iconName = focused ? 'ios-list' : 'ios-list-outline';
+          }
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#21d111',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <DriveBottomTab.Screen name="Home" options={{ headerShown: false }}>
         {(props) => <DriverScreen {...props} setShowTopNav={setShowTopNav} />}
       </DriveBottomTab.Screen>
       <DriveBottomTab.Screen name="RideRequest" component={RideRequestScreen} options={{ headerShown: false }} />
-      {/* Add icons and other configurations as needed */}
+      {/* ... other screens if any */}
     </DriveBottomTab.Navigator>
   );
 }
