@@ -28,7 +28,7 @@ const RideHistory = ({ navigation }) => {
         const ridesList = Object.keys(ridesData)
           .map((key) => {
             const ride = ridesData[key];
-            if (ride.rider === currentUser && ride.driver === currentUser) {
+            if (ride.rider === currentUser || ride.driver === currentUser) {
               return {
                 id: key,
                 from: ride.from, // From the ride data
