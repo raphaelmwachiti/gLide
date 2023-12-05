@@ -80,9 +80,6 @@ const DriverScreen = ({ navigation }) => {
               <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("EditRide", {rideId: ride.id })}>
                 <Text style={styles.buttonText}>Edit</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.startRideButton} onPress={() => navigation.navigate("StartRide", {rideId: ride.id })}>
-                <Text style={styles.buttonText}>Start Ride</Text>
-                </TouchableOpacity>
               <View style={styles.priceContainer}>
                 <Text style={styles.priceText}>${ride.price}</Text>
               </View>
