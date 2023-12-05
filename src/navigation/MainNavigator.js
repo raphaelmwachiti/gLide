@@ -32,7 +32,7 @@ function GlideBottomTabNavigator() {
     <GlideBottomTab.Navigator>
       <GlideBottomTab.Screen name="FindRide" component={FindRideScreen} options={{ headerShown: false }} />
       <GlideBottomTab.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
-      <GlideBottomTab.Screen name="ReviewRide" component={ReviewRideScreen} options={{ headerShown: false }} />
+      <GlideBottomTab.Screen name="RideHistory" component={RideHistory} options={{ headerShown: false }} />
       {/* Add icons and other configurations as needed */}
     </GlideBottomTab.Navigator>
   );
@@ -62,7 +62,7 @@ function TopBarNavigator() {
 // Main Navigator that holds the Top Bar and Bottom Bar Navigators
 function MainNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Register'>
       <Stack.Screen name="Main" component={TopBarNavigator} options={{ headerShown: false }} />
       {/* Other screens can be added here if needed */}
       <Stack.Screen
