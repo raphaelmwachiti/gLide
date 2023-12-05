@@ -14,6 +14,21 @@ import db from "@react-native-firebase/database";
 
 export default function FindRide({ navigation }) {
   const [rides, setRides] = useState([]);
+  const [location, setLocation] = useState("");
+  const [destination, setDestination] = useState("");
+
+  const handleSearch = () => {
+    // Implement your search logic here using the 'location' and 'destination' values
+    // For example, you can filter the 'rides' array based on the search criteria
+    const filteredRides = rides.filter((ride) => {
+      // Adjust the condition based on your requirements
+      return ride.from.toLowerCase().includes(location.toLowerCase()) &&
+             ride.to.toLowerCase().includes(destination.toLowerCase());
+    });
+
+    // Update the 'rides' state with the filtered results
+    setRides(filteredRides);
+  };
 
   useEffect(() => {
     const ridesRef = db().ref("/rides");
@@ -48,10 +63,20 @@ export default function FindRide({ navigation }) {
       <View style={styles.searchContainer}>
         <Text style={styles.pageTitle}>Find Your Ride!</Text>
         <View style={styles.searchInputContainer}>
-          <TextInput placeholder="Your location" style={styles.input} />
-          <TextInput placeholder="Your destination" style={styles.input} />
+        <TextInput
+          placeholder="Your location"
+          style={styles.input}
+          value={location}
+          onChangeText={(text) => setLocation(text)}
+        />
+        <TextInput
+          placeholder="Your destination"
+          style={styles.input}
+          value={destination}
+          onChangeText={(text) => setDestination(text)}
+        />
         </View>
-        <TouchableOpacity style={styles.searchButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.searchButton}  onPress={handleSearch}>
           <Text style={[styles.buttonText, { color: "#FFF" }]}>
             Search Rides
           </Text>
@@ -78,7 +103,7 @@ export default function FindRide({ navigation }) {
               <Text style={[styles.rideInfo, styles.priceText]}>
                 Price: ${ride.price}
               </Text>
-              <Text style={styles.rideInfo}>Departure: {ride.time}</Text>
+              <Text style={styles.rideInfo}>Departure: {ride.time}pm</Text>
               <Text style={styles.rideInfo}>
                 Passenger Limit: {ride.passengerLimit}
               </Text>

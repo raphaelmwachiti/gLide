@@ -72,7 +72,7 @@ const DriverScreen = ({ navigation }) => {
             <View style={styles.rideDetails}>
               <Text style={styles.rideName}>From: {ride.from}</Text>
               <Text style={styles.rideDetail}>To: {ride.to}</Text>
-              <Text style={styles.rideDetail}>Time: {ride.time}</Text>
+              <Text style={styles.rideDetail}>duration: {ride.time}h</Text>
               <Text style={styles.rideDetail}>Passenger Limit: {ride.passengerLimit}</Text>
             </View>
 
@@ -81,7 +81,7 @@ const DriverScreen = ({ navigation }) => {
                 <Text style={styles.buttonText}>Edit</Text>
               </TouchableOpacity>
               <View style={styles.priceContainer}>
-                <Text style={styles.priceText}>{ride.price}</Text>
+                <Text style={styles.priceText}>${ride.price}</Text>
               </View>
             </View>
           </View>

@@ -7,9 +7,11 @@ import {
   StyleSheet,
   SafeAreaView,
   Alert,
+  ScrollView,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import db from "@react-native-firebase/database";
+import DatePicker from 'react-native-date-picker';
 
 const EditRide = () => {
   const navigation = useNavigation();
@@ -20,6 +22,7 @@ const EditRide = () => {
     from: "",
     to: "",
     time: "",
+    date: new Date(),
     passengerLimit: "",
     price: "",
   });
@@ -32,9 +35,11 @@ const EditRide = () => {
         setEditedRide({
           from: rideData.from,
           to: rideData.to,
+          date: new Date(),
           time: rideData.time,
           passengerLimit: rideData.passengerLimit,
           price: rideData.price,
+          timeDate: rideData.timeDate,
         });
       } else {
         console.log("Ride not found in the database");
@@ -89,6 +94,7 @@ const EditRide = () => {
 
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Edit Ride</Text>
 
@@ -128,10 +134,30 @@ const EditRide = () => {
 
       <TextInput
         style={styles.input}
-        placeholder="Time"
+        placeholder="duration"
         value={editedRide.time}
         onChangeText={(text) => setEditedRide({ ...editedRide, time: text })}
       />
+      
+      <View style={styles.datePickerContainer}>
+    <Text style={styles.datePickerLabel}>Date:</Text>
+    <DatePicker
+      style={styles.datePicker}
+      date={editedRide.date}
+      mode="date"
+      format="YYYY-MM-DD"
+      onDateChange={(newDate) => setEditedRide({ ...editedRide, date: newDate })}
+    />
+  </View>
+
+  <TextInput
+    style={styles.input}
+    placeholder="Time"
+    value={editedRide.timeDate} // Extracting time from the time field
+    onChangeText={(text) => setEditedRide({ ...editedRide, timeDate: text })}
+  />
+
+
 
       <TextInput
         style={styles.input}
@@ -164,6 +190,7 @@ const EditRide = () => {
       </TouchableOpacity>
 
     </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -268,5 +295,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
   },
+  datePickerContainer: {
+    alignItems: "center",
+    marginTop: 20, // Add some margin from the top
+  },
+  datePickerLabel: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  datePicker: {
+    width: 250, // Adjust the width as needed
+    height:40,
+  },
+  scrollViewContent: {
+    paddingBottom: 20,
+  },
+  
 });
 export default EditRide;

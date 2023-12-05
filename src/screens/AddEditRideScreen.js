@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView } from "react-native";
 import {
+  SafeAreaView,
   View,
   Text,
   TextInput,
@@ -11,12 +11,15 @@ import {
 } from "react-native";
 import db from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
+import DatePicker from 'react-native-date-picker';
 
 const AddEditRideScreen = ({ navigation }) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [allowStops, setAllowStops] = useState(false);
-  const [time, setTime] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [timeDate, setTime] = useState("");
+  const [time, setDuration] = useState("");
   const [passengerLimit, setPassengerLimit] = useState("");
   const [driver, setDriver] = useState(null);
   const [price, setPrice] = useState("");
@@ -54,6 +57,9 @@ const AddEditRideScreen = ({ navigation }) => {
       return;
     }
 
+    const dateTime = new Date(date);
+    const dateTimeString = `${dateTime.toISOString().split("T")[0]} ${timeDate}`;
+
     // Add ride to Firebase Database
     const newRideRef = db().ref("/rides").push();
     try {
@@ -61,9 +67,10 @@ const AddEditRideScreen = ({ navigation }) => {
         from,
         to,
         allowStops,
-        time,
+        timeDate,
         passengerLimit,
         driver, // Add the driver's UID to the ride data
+        time,
         price,
         status: "Open",
       });
@@ -76,10 +83,8 @@ const AddEditRideScreen = ({ navigation }) => {
   };
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <SafeAreaView style={styles.container}>
-      <Text style={styles.warningText}>
-        This ride has 3 books editing will cancel all
-      </Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -130,12 +135,32 @@ const AddEditRideScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.datePickerContainer}>
+          <Text style={styles.datePickerLabel}>Date:</Text>
+          <DatePicker
+            style={styles.datePicker}
+            date={date}
+            mode="date"
+            format="YYYY-MM-DD"
+            onDateChange={(newDate) => setDate(newDate)}
+          />
+        </View>
+
         <TextInput
           style={styles.input}
-          placeholder="Time"
-          value={time}
+          placeholder="Time (HH)"
+          value={timeDate}
           onChangeText={setTime}
         />
+        
+        <TextInput
+          style={styles.input}
+          placeholder="Duration (hours)"
+          keyboardType="numeric"
+          value={time}
+          onChangeText={(text) => setDuration(text)}
+        />
+
         <TextInput
           style={styles.input}
           placeholder="Passenger limit"
@@ -159,6 +184,7 @@ const AddEditRideScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -241,7 +267,9 @@ const styles = StyleSheet.create({
   safetyTipsText: {
     fontSize: 16,
   },
-  // Add more styles as needed
+  scrollViewContent: {
+    paddingBottom: 20,
+  },
 });
 
 export default AddEditRideScreen;
