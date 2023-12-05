@@ -158,13 +158,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  statusButton: {
-    backgroundColor: 'black', // Choose a color that fits your app's design
-    padding: 10,
+  startRideButton: {
+    backgroundColor: "#21d111",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginBottom: 8,
   },
+
 
   buttonsColumn: {
     flexDirection: 'column',

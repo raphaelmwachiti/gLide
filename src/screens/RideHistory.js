@@ -77,15 +77,23 @@ const RideHistory = ({ navigation }) => {
             </View>
             <Text style={styles.fare}>Fare: ${ride.price}</Text>
             <View style={styles.buttonsColumn}>
-              <TouchableOpacity
-                style={styles.chatButton}
+            <TouchableOpacity
+              style={styles.chatButton}
+              onPress={() =>
+                navigation.navigate("ChatScreen", { rideId: ride.id })
+              }
+            >
+              <Text style={styles.chatButtonText}>Chat</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.statusButton}
                 onPress={() =>
-                  navigation.navigate("ChatScreen", { rideId: ride.id })
+                  navigation.navigate("StatusScreen", { rideId: ride.id })
                 }
               >
-                <Text style={styles.chatButtonText}>Chat</Text>
+                <Text style={styles.statusButtonText}>Status</Text>
               </TouchableOpacity>
-            </View>
+              </View>
           </View>
         ))}
       </ScrollView>
@@ -162,7 +170,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
-
+  statusButton: {
+    backgroundColor: 'black', // Choose a color that fits your app's design
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   statusButtonText: {
     color: '#ffffff',
     fontSize: 16,
