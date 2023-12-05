@@ -81,7 +81,7 @@ function MainNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="MainNavigator"
+        name="GlideDriveTabs"
         component={MainNavigator}
         options={{ headerShown: false }}
       />
