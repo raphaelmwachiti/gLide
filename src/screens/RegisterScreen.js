@@ -47,7 +47,6 @@ export default function RegisterScreen() {
   
         <View style={styles.titleAndFormContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Register</Text> 
           </View>
   
           <View style={styles.formContainer}>
@@ -122,13 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 20,
-  },
-  titleText: {
-    color: "black",
-    fontWeight: "bold",
-    paddingRight: 10,
-    fontSize: 28,
-    letterSpacing: 1,
   },
   formContainer: {
     flex: 1,

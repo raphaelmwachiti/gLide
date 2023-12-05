@@ -15,6 +15,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import LogInScreen from "../screens/LogScreen";
 import SafetyScreen from "../screens/SafetyScreen";
 import RideHistory from '../screens/RideHistory'
+import EditRide from '../screens/EditRide'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -89,6 +90,11 @@ function AppNavigator() {
             <Stack.Screen 
         name="RideHistory" 
         component={RideHistory}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="EditRide" 
+        component={EditRide}
         options={{ headerShown: false }}
       />
 

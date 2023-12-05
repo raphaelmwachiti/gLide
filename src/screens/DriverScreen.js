@@ -92,7 +92,7 @@ const DriverScreen = ({ navigation, setShowTopNav }) => {
             </View>
 
             <View style={styles.buttonsColumn}>
-              <TouchableOpacity style={styles.editButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("EditRide", {rideId: ride.id })}>
                 <Text style={styles.buttonText}>Edit</Text>
               </TouchableOpacity>
               <View style={styles.priceContainer}>

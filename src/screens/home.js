@@ -14,14 +14,14 @@ function HomeScreen() {
         style={styles.glideButton}
         onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}
       >
-        <MaterialCommunityIcons name="human-male" size={24} color="#007BFF" />
+      
         <Text style={styles.buttonText}>👤 Glide</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.driveButton}
         onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })}
       >
-        <Ionicons name="ios-car" size={24} color="#FF9500" />
+        
         <Text style={styles.buttonText}>🚗 Drive</Text>
       </TouchableOpacity>
     </View>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5F5F5', // Light blue-gray background
+    backgroundColor: '#F5F5F5',
   },
   greeting: {
     fontSize: 32,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   glideButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#007BFF', // Blue color for Glide
+    backgroundColor: '#21d111', 
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 10,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   driveButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FF9500', // Orange color for Drive
+    backgroundColor: 'black', 
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 10,
