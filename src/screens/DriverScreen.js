@@ -124,9 +124,9 @@ const DriverScreen = ({ navigation }) => {
             {/* make button dynamic depending on status */}
             <TouchableOpacity
               style={styles.shareButton}
-              onPress={() => navigation.navigate("AddEditRideScreen")}
+              onPress={() => navigation.navigate("EditRide")}
             >
-              <Text style={styles.buttonText}>Review requests (3) </Text>
+              <Text style={styles.buttonText}>Edit </Text>
             </TouchableOpacity>
           </View>
         ))}
