@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native";
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import db from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
 
@@ -28,7 +35,7 @@ const DriveHistory = ({ navigation }) => {
         const ridesList = Object.keys(ridesData)
           .map((key) => {
             const ride = ridesData[key];
-            if (ride.driver === currentUser && ride.status === "Booked") {
+            if (ride.driver === currentUser && ride.status !== "Open") {
               return {
                 id: key,
                 from: ride.from, // From the ride data
@@ -60,8 +67,12 @@ const DriveHistory = ({ navigation }) => {
           <View key={ride.id} style={styles.rideItem}>
             <View style={styles.rideDetails}>
               {/* You'll need to handle date formatting */}
-              <Text style={styles.date}>{ride.from} - {ride.to}</Text>
-              <Text style={styles.time}>Departure: {ride.timeDate} on {ride.dateTimeString}</Text>
+              <Text style={styles.date}>
+                {ride.from} - {ride.to}
+              </Text>
+              <Text style={styles.time}>
+                Departure: {ride.timeDate} on {ride.dateTimeString}
+              </Text>
               <Text style={styles.time}>Estimated Duration: {ride.time}h</Text>
               <Text style={styles.location}>
                 Passenger Limit: {ride.passengerLimit}
@@ -70,24 +81,30 @@ const DriveHistory = ({ navigation }) => {
                 Allow Stops: {ride.allowStops ? "Yes" : "No"}
               </Text>
               <Text style={styles.location}>Driver: {ride.driver}</Text>
-              <Text style={styles.location}>Rider: {ride.rider} (YOU)</Text>
+              <Text style={styles.location}>Rider: {ride.rider}</Text>
               <Text style={styles.location}>Status: {ride.status}</Text>
             </View>
             <View style={styles.buttonsColumn}>
-            <Text style={styles.fare}>Fare: ${ride.price}</Text>
+              <Text style={styles.fare}>Fare: ${ride.price}</Text>
               <TouchableOpacity
                 style={styles.chatButton}
                 onPress={() =>
                   navigation.navigate("ChatScreen", { rideId: ride.id })
                 }
               >
-                <Text style={styles.chatButtonText}>Chat</Text>
+                <Text style={styles.buttonText}>Chat</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.startRideButton} onPress={() => navigation.navigate("StartRide", { rideId: ride.id })}>
-                <Text style={styles.buttonText}>Start Ride</Text>
+              <TouchableOpacity
+                style={styles.startRideButton}
+                onPress={() =>
+                  navigation.navigate("StartRide", { rideId: ride.id })
+                }
+              >
+                <Text style={styles.buttonText}>
+                  {ride.status === "Open" ? "Start Ride" : "Ride Status"}
+                </Text>
               </TouchableOpacity>
             </View>
-
           </View>
         ))}
       </ScrollView>
@@ -135,7 +152,6 @@ const styles = StyleSheet.create({
   location: {
     color: "#888",
     marginTop: 4,
-    
   },
   fare: {
     fontSize: 20,
@@ -145,15 +161,15 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   chatButton: {
-    backgroundColor: '#17920b', // Choose a color that fits your app's design
+    backgroundColor: "#17920b", // Choose a color that fits your app's design
     padding: 10,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 10,
   },
   chatButtonText: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
   },
 
@@ -163,20 +179,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
     marginBottom: 8,
-    marginTop:10,
+    marginTop: 10,
   },
 
-
   buttonsColumn: {
-    flexDirection: 'column',
-    alignItems: 'flex-end',
+    flexDirection: "column",
+    alignItems: "flex-end",
   },
 
   buttonText: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
-export default DriveHistory;  
+export default DriveHistory;
