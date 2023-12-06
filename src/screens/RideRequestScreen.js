@@ -52,7 +52,7 @@ const RideRequestScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.returnButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })}>
         <Text style={styles.buttonText}>Return to all rides </Text>
      </TouchableOpacity>
-      <TouchableOpacity style={styles.safetyTipsButton}>
+      <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate('SafetyScreen')}>
         <Text style={styles.safetyTipsText}>Safety tips</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   acceptButton: {
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     padding: 10,
     borderRadius: 5,
     width: '45%'
   },
   acceptButton: {
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     padding: 10,
     borderRadius: 5,
     width: '45%'
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 15,
+   
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center'
   },

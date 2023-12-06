@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import SafetyScreen from './SafetyScreen';
 
 const ReviewRideScreen = ({ navigation }) => {
   return (
@@ -56,7 +57,7 @@ const ReviewRideScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.safetyTipsButton}>
+        <TouchableOpacity style={styles.safetyTipsButton} onPress={()=> navigation.navigate(SafetyScreen)}>
           <Text style={styles.safetyTipsText}>Safety tips</Text>
         </TouchableOpacity>
       </View>
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   bookButton: {
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
   },
   safetyTipsText: {
     fontWeight: 'bold',
-    color: '#21d111', 
+    color: '#17920b', 
   },
   
 });

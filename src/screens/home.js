@@ -1,49 +1,75 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-function HomeScreen({ navigation }) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.greeting}>Will you be Gliding or Driving?</Text>
-        <TouchableOpacity
-          style={styles.customButton}
-          onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}
-        >
-          <Text style={styles.buttonText}>Glide</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.customButton}
-          onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })}
-        >
-          <Text style={styles.buttonText}>Drive</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+function HomeScreen() {
+  const navigation = useNavigation();
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.greeting}>Welcome!</Text>
+      <Text style={styles.subText}>Will you be Gliding or Driving?</Text>
+      <TouchableOpacity
+        style={styles.glideButton}
+        onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}
+      >
+      
+        <Text style={styles.buttonText}>👤 Glide</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.driveButton}
+        onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Drive' })}
+      >
+        
+        <Text style={styles.buttonText}>🚗 Drive</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff', 
+    backgroundColor: '#F5F5F5',
   },
   greeting: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: 'black', 
+    fontSize: 32,
+    marginBottom: 10,
+    color: '#333',
   },
-  customButton: {
-    backgroundColor: '#21d111', 
+  subText: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: '#666',
+  },
+  glideButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#17920b', 
     paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
+    paddingVertical: 15,
+    borderRadius: 10,
     marginVertical: 10,
-    width: '60%',
+    width: '80%',
+    elevation: 3,
+  },
+  driveButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'black', 
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginVertical: 10,
+    width: '80%',
+    elevation: 3,
   },
   buttonText: {
-    color: '#fff', 
-    textAlign: 'center',
+    color: '#fff',
+    marginLeft: 10,
     fontSize: 18,
   },
 });
