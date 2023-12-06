@@ -51,6 +51,9 @@ function GlideBottomTabNavigator({ setShowTopNav }) {
       tabBarOptions={{
         activeTintColor: '#17920b',
         inactiveTintColor: 'gray',
+        labelStyle: {
+            fontSize: 12,
+        },
       }}
     >
       <GlideBottomTab.Screen name="FIND A RIDE" options={{ headerShown: false }}>
@@ -81,6 +84,9 @@ function DriveBottomTabNavigator({ setShowTopNav }) {
       tabBarOptions={{
         activeTintColor: '#17920b',
         inactiveTintColor: 'gray',
+        labelStyle: {
+          fontSize: 12,
+        },
       }}
     >
       <DriveBottomTab.Screen name="HOME" options={{ headerShown: false }}>

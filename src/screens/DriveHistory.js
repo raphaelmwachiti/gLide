@@ -28,7 +28,7 @@ const DriveHistory = ({ navigation }) => {
         const ridesList = Object.keys(ridesData)
           .map((key) => {
             const ride = ridesData[key];
-            if (ride.driver === currentUser) {
+            if (ride.driver === currentUser && ride.status === "Booked") {
               return {
                 id: key,
                 from: ride.from, // From the ride data
@@ -60,23 +60,21 @@ const DriveHistory = ({ navigation }) => {
           <View key={ride.id} style={styles.rideItem}>
             <View style={styles.rideDetails}>
               {/* You'll need to handle date formatting */}
-              <Text style={styles.date}>Date: {ride.dateTimeString}</Text>
-              <Text style={styles.time}>Time: {ride.time}</Text>
-              <Text style={styles.location}>
-                From: {ride.from} To: {ride.to}
-              </Text>
-              <Text style={styles.location}>Driver: {ride.driver}</Text>
-              <Text style={styles.location}>Rider: {ride.rider}</Text>
-              <Text style={styles.location}>
-                Allow Stops: {ride.allowStops ? "Yes" : "No"}
-              </Text>
+              <Text style={styles.date}>{ride.from} - {ride.to}</Text>
+              <Text style={styles.time}>Departure: {ride.timeDate} on {ride.dateTimeString}</Text>
+              <Text style={styles.time}>Estimated Duration: {ride.time}h</Text>
               <Text style={styles.location}>
                 Passenger Limit: {ride.passengerLimit}
               </Text>
+              <Text style={styles.location}>
+                Allow Stops: {ride.allowStops ? "Yes" : "No"}
+              </Text>
+              <Text style={styles.location}>Driver: {ride.driver}</Text>
+              <Text style={styles.location}>Rider: {ride.rider} (YOU)</Text>
               <Text style={styles.location}>Status: {ride.status}</Text>
             </View>
-            <Text style={styles.fare}>Fare: ${ride.price}</Text>
             <View style={styles.buttonsColumn}>
+            <Text style={styles.fare}>Fare: ${ride.price}</Text>
               <TouchableOpacity
                 style={styles.chatButton}
                 onPress={() =>
@@ -137,11 +135,12 @@ const styles = StyleSheet.create({
   location: {
     color: "#888",
     marginTop: 4,
+    
   },
   fare: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#2ecc71",
+    color: "black",
     marginTop: 8,
     paddingRight: 16,
   },
@@ -161,9 +160,10 @@ const styles = StyleSheet.create({
   startRideButton: {
     backgroundColor: "black",
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderRadius: 5,
     marginBottom: 8,
+    marginTop:10,
   },
 
 

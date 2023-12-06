@@ -10,55 +10,66 @@ import {
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import db from "@react-native-firebase/database";
+import { useFocusEffect } from "@react-navigation/native";
 
 const DriverScreen = ({ navigation }) => {
   const [rides, setRides] = useState([]);
 
-  useEffect(() => {
-    const currentUser = auth().currentUser;
-
-    if (currentUser) {
-      const uid = currentUser.uid;
-      const userRef = db().ref(`/users/${uid}/name`);
-
-      userRef
-        .once("value")
-        .then((snapshot) => {
-          const userName = snapshot.val();
-          if (userName) {
-            fetchRides(userName);
-          } else {
-            console.log("User name is not set in the database.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data: ", error);
-        });
-    }
-  }, []);
-
-  const fetchRides = (userName) => {
-    const ridesRef = db().ref("/rides");
-
-    ridesRef
-      .orderByChild("driver")
-      .equalTo(userName)
-      .once("value", (snapshot) => {
-        const ridesData = snapshot.val();
-        if (ridesData) {
-          const ridesArray = Object.keys(ridesData).map((key) => ({
-            id: key,
-            ...ridesData[key],
-          }));
-          setRides(ridesArray);
-        } else {
-          console.log("No rides found for this driver.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching ride data: ", error);
-      });
-  };
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+  
+      const currentUser = auth().currentUser;
+  
+      const fetchRides = (userName) => {
+        const ridesRef = db().ref("/rides");
+  
+        ridesRef
+          .orderByChild("driver")
+          .equalTo(userName)
+          .once("value", (snapshot) => {
+            const ridesData = snapshot.val();
+            if (ridesData && isActive) {
+              const openRides = Object.keys(ridesData)
+                .filter((key) => ridesData[key].status === "Open")
+                .map((key) => ({
+                  id: key,
+                  ...ridesData[key],
+                }));
+              setRides(openRides);
+            } else {
+              console.log("No rides found for this driver.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching ride data: ", error);
+          });
+      };
+  
+      if (currentUser) {
+        const uid = currentUser.uid;
+        const userRef = db().ref(`/users/${uid}/name`);
+  
+        userRef
+          .once("value")
+          .then((snapshot) => {
+            const userName = snapshot.val();
+            if (userName) {
+              fetchRides(userName);
+            } else {
+              console.log("User name is not set in the database.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data: ", error);
+          });
+      }
+  
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -70,10 +81,11 @@ const DriverScreen = ({ navigation }) => {
         {rides.map((ride) => (
           <View key={ride.id} style={styles.rideCard}>
             <View style={styles.rideDetails}>
-              <Text style={styles.rideName}>From: {ride.from}</Text>
-              <Text style={styles.rideDetail}>To: {ride.to}</Text>
-              <Text style={styles.rideDetail}>duration: {ride.time}h</Text>
+              <Text style={styles.rideName}>{ride.from} - {ride.to}</Text>
+                <Text style={styles.rideDetail}>Departure: {ride.timeDate} on {ride.dateTimeString}</Text>
+              <Text style={styles.rideDetail}>Estimated Duration: {ride.time}h</Text>
               <Text style={styles.rideDetail}>Passenger Limit: {ride.passengerLimit}</Text>
+              <Text style={styles.rideDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
             </View>
 
             <View style={styles.buttonsColumn}>
@@ -116,7 +128,6 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2C3E50',
     marginBottom: 20,
   },
   scrollViewContent: {

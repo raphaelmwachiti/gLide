@@ -9,10 +9,10 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import db from "@react-native-firebase/database";
-import DatePicker from 'react-native-date-picker';
+import DatePicker from "react-native-date-picker";
 
 const EditRide = () => {
   const navigation = useNavigation();
@@ -34,9 +34,11 @@ const EditRide = () => {
       const rideData = snapshot.val();
       if (rideData) {
         const dateTime = new Date(rideData.timeDate); // Use the appropriate property here
-        const dateTimeString1 = `${dateTime.toISOString().split("T")[0]} ${rideData.time}`;
+        const dateTimeString1 = `${dateTime.toISOString().split("T")[0]} ${
+          rideData.time
+        }`;
         const dateTimeString = dateTimeString1.substring(0, 10);
-  
+
         setEditedRide({
           from: rideData.from,
           to: rideData.to,
@@ -98,106 +100,109 @@ const EditRide = () => {
     );
   };
 
-
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.headerText}>Edit Ride</Text>
-      
-      <TouchableOpacity style={styles.backButton}></TouchableOpacity>
-
-
-      <TextInput
-        style={styles.input}
-        placeholder="From"
-        value={editedRide.from}
-        onChangeText={(text) => setEditedRide({ ...editedRide, from: text })}
-      />
-
-
-      <TextInput
-        style={styles.input}
-        placeholder="To"
-        value={editedRide.to}
-        onChangeText={(text) => setEditedRide({ ...editedRide, to: text })}
-      />
-
-      <View style={styles.toggleContainer}>
-        <Text style={styles.toggleLabel}>Allow stops:</Text>
-        <TouchableOpacity
-          style={[styles.toggleButton, editedRide.allowStops ? styles.toggleButtonActive : null]}
-          onPress={() => setEditedRide({ ...editedRide, allowStops: true })}
-        >
-          <Text style={[styles.toggleButtonText, editedRide.allowStops ? styles.toggleButtonTextActive : null]}>
-            Yes
-          </Text>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.headerText}>Edit Ride</Text>
+        <TouchableOpacity style={styles.backButton}></TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          placeholder="From"
+          value={editedRide.from}
+          onChangeText={(text) => setEditedRide({ ...editedRide, from: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="To"
+          value={editedRide.to}
+          onChangeText={(text) => setEditedRide({ ...editedRide, to: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Price"
+          keyboardType="numeric"
+          value={editedRide.price}
+          onChangeText={(text) => setEditedRide({ ...editedRide, price: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Departure Time (24h format)"
+          value={editedRide.timeDate} // Extracting time from the time field
+          onChangeText={(text) =>
+            setEditedRide({ ...editedRide, timeDate: text })
+          }
+        />
+         <TextInput
+          style={styles.input}
+          placeholder="Estimated Duration"
+          value={editedRide.time}
+          onChangeText={(text) => setEditedRide({ ...editedRide, time: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Passenger Limit"
+          keyboardType="numeric"
+          value={editedRide.passengerLimit}
+          onChangeText={(text) =>
+            setEditedRide({
+              ...editedRide,
+              passengerLimit: text.replace(/[^0-9]/g, ""),
+            })
+          }
+        />
+        <View style={styles.toggleContainer}>
+          <Text style={styles.toggleLabel}>Allow stops:</Text>
+          <TouchableOpacity
+            style={[
+              styles.toggleButton,
+              editedRide.allowStops ? styles.toggleButtonActive : null,
+            ]}
+            onPress={() => setEditedRide({ ...editedRide, allowStops: true })}
+          >
+            <Text
+              style={[
+                styles.toggleButtonText,
+                editedRide.allowStops ? styles.toggleButtonTextActive : null,
+              ]}
+            >
+              Yes
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.toggleButton,
+              !editedRide.allowStops ? styles.toggleButtonActive : null,
+            ]}
+            onPress={() => setEditedRide({ ...editedRide, allowStops: false })}
+          >
+            <Text
+              style={[
+                styles.toggleButtonText,
+                !editedRide.allowStops ? styles.toggleButtonTextActive : null,
+              ]}
+            >
+              No
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
+          <Text style={styles.buttonText}>Save Changes</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.toggleButton, !editedRide.allowStops ? styles.toggleButtonActive : null]}
-          onPress={() => setEditedRide({ ...editedRide, allowStops: false })}
+          style={styles.deleteButton}
+          onPress={handleDeleteRide}
         >
-          <Text style={[styles.toggleButtonText, !editedRide.allowStops ? styles.toggleButtonTextActive : null]}>
-            No
-          </Text>
+          <Text style={styles.buttonText}>Delete Ride</Text>
         </TouchableOpacity>
-      </View>
-
-      <TextInput
-        style={styles.input}
-        placeholder="duration"
-        value={editedRide.time}
-        onChangeText={(text) => setEditedRide({ ...editedRide, time: text })}
-      />
-  <TextInput
-    style={styles.input}
-    placeholder="Time"
-    value={editedRide.timeDate} // Extracting time from the time field
-    onChangeText={(text) => setEditedRide({ ...editedRide, timeDate: text })}
-  />
-
-
-
-      <TextInput
-        style={styles.input}
-        placeholder="Passenger Limit"
-        keyboardType="numeric"
-        value={editedRide.passengerLimit}
-        onChangeText={(text) => setEditedRide({ ...editedRide, passengerLimit: text.replace(/[^0-9]/g, "") })}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Price"
-        keyboardType="numeric"
-        value={editedRide.price}
-        onChangeText={(text) => setEditedRide({ ...editedRide, price: text })}
-      />
-
-      <TouchableOpacity
-        style={styles.saveButton}
-        onPress={handleSaveChanges}
-      >
-        <Text style={styles.buttonText}>Save Changes</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.deleteButton}
-        onPress={handleDeleteRide}
-      >
-        <Text style={styles.buttonText}>Delete Ride</Text>
-      </TouchableOpacity>
-
-    </SafeAreaView>
+      </SafeAreaView>
     </ScrollView>
   );
 };
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    marginHorizontal: 20,
   },
   headerText: {
     fontSize: 24,
@@ -205,6 +210,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 20,
     color: "#2C3E50",
+    paddingLeft: 16,
   },
   warningText: {
     textAlign: "center",
@@ -303,14 +309,14 @@ const styles = StyleSheet.create({
   },
   datePicker: {
     width: 250, // Adjust the width as needed
-    height:40,
+    height: 40,
   },
   scrollViewContent: {
     paddingBottom: 20,
   },
-  
+
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 5,
     left: 5,
     zIndex: 1,

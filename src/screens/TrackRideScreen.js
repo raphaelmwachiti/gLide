@@ -34,7 +34,7 @@ const TrackRideScreen = ({ route, navigation }) => {
             <Text style={styles.profileName}>{ride.from} - {ride.to}</Text>
             <Text style={styles.profileDetail}>Price: ${ride.price}</Text>
             <Text style={styles.profileDetail}>Departure: {ride.timeDate} on {ride.dateTimeString} </Text>
-            <Text style={styles.profileDetail}>Estimated Time for Trip: {ride.time}</Text>
+            <Text style={styles.profileDetail}>Estimated Duration: {ride.time}</Text>
             <Text style={styles.profileDetail}>Passenger Limit: {ride.passengerLimit}</Text>
             <Text style={styles.profileDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
             <Text style={styles.profileDetail}>Driver: {ride.driver}</Text>

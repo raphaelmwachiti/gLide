@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#2C3E50",
     marginBottom: 20,
   },
   searchInputContainer: {
