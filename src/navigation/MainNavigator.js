@@ -39,9 +39,9 @@ function GlideBottomTabNavigator({ setShowTopNav }) {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'FindRide') {
+          if (route.name === 'FIND A RIDE') {
             iconName = focused ? 'ios-search' : 'ios-search-outline';
-          } else if (route.name === 'RideHistory') {
+          } else if (route.name === 'YOUR RIDES') {
             iconName = focused ? 'ios-people' : 'ios-people-outline';
           }
           // You can return any component that you like here!
@@ -49,14 +49,14 @@ function GlideBottomTabNavigator({ setShowTopNav }) {
         },
       })}
       tabBarOptions={{
-        activeTintColor: '#21d111',
+        activeTintColor: '#17920b',
         inactiveTintColor: 'gray',
       }}
     >
-      <GlideBottomTab.Screen name="FindRide" options={{ headerShown: false }}>
+      <GlideBottomTab.Screen name="FIND A RIDE" options={{ headerShown: false }}>
         {(props) => <FindRideScreen {...props} setShowTopNav={setShowTopNav} />}
       </GlideBottomTab.Screen>
-      <GlideBottomTab.Screen name="RideHistory" component={RideHistory} options={{ headerShown: false }} />
+      <GlideBottomTab.Screen name="YOUR RIDES" component={RideHistory} options={{ headerShown: false }} />
       {/* ... other screens if any */}
     </GlideBottomTab.Navigator>
   );
@@ -69,9 +69,9 @@ function DriveBottomTabNavigator({ setShowTopNav }) {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === 'HOME') {
             iconName = focused ? 'ios-car' : 'ios-car-outline';
-          } else if (route.name === 'DriveHistory') {
+          } else if (route.name === 'YOUR DRIVES') {
             iconName = focused ? 'ios-person' : 'ios-person';
           }
           // You can return any component that you like here!
@@ -79,14 +79,14 @@ function DriveBottomTabNavigator({ setShowTopNav }) {
         },
       })}
       tabBarOptions={{
-        activeTintColor: '#21d111',
+        activeTintColor: '#17920b',
         inactiveTintColor: 'gray',
       }}
     >
-      <DriveBottomTab.Screen name="Home" options={{ headerShown: false }}>
+      <DriveBottomTab.Screen name="HOME" options={{ headerShown: false }}>
         {(props) => <DriverScreen {...props} setShowTopNav={setShowTopNav} />}
       </DriveBottomTab.Screen>
-      <DriveBottomTab.Screen name="DriveHistory" component={DriveHistory} options={{ headerShown: false }} />
+      <DriveBottomTab.Screen name="YOUR DRIVES" component={DriveHistory} options={{ headerShown: false }} />
       {/* ... other screens if any */}
     </DriveBottomTab.Navigator>
   );

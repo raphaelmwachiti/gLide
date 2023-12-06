@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   acceptButton: {
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     padding: 10,
     borderRadius: 5,
     width: '45%'
   },
   acceptButton: {
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     padding: 10,
     borderRadius: 5,
     width: '45%'

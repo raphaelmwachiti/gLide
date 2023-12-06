@@ -89,7 +89,7 @@ const DriverScreen = ({ navigation }) => {
       </ScrollView>
 
       <TouchableOpacity
-        style={[styles.addButton, {backgroundColor: '#21d111'}]}
+        style={[styles.addButton, {backgroundColor: '#17920b'}]}
         onPress={() => navigation.navigate("AddEditRideScreen")}
       >
         <Text style={styles.buttonText}>+</Text>
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   startRideButton: {
-    backgroundColor: "#21d111",
+    backgroundColor: "#17920b",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

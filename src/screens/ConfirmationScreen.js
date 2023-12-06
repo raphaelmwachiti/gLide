@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   trackButton: {
-    backgroundColor: "#21d111",
+    backgroundColor: "#17920b",
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,

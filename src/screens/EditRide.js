@@ -259,14 +259,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   confirmButton: {
-    backgroundColor: "#21d111",
+    backgroundColor: "#17920b",
     padding: 15,
     borderRadius: 5,
     alignItems: "center",
     marginBottom: 10,
   },
   saveButton: {
-    backgroundColor: "#21d111",
+    backgroundColor: "#17920b",
     padding: 15,
     borderRadius: 5,
     alignItems: "center",

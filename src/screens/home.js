@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   glideButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 10,

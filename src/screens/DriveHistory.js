@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   chatButton: {
-    backgroundColor: '#21d111', // Choose a color that fits your app's design
+    backgroundColor: '#17920b', // Choose a color that fits your app's design
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',

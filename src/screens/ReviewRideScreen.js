@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   bookButton: {
-    backgroundColor: '#21d111', 
+    backgroundColor: '#17920b', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   safetyTipsText: {
     fontWeight: 'bold',
-    color: '#21d111', 
+    color: '#17920b', 
   },
   
 });

@@ -57,7 +57,7 @@ const TrackRideScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   rideHistoryButton: {
-    backgroundColor: '#21d111', // Choose a color that fits your app's design
+    backgroundColor: '#17920b', // Choose a color that fits your app's design
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   trackButton: {
-    backgroundColor: '#21d111',
+    backgroundColor: '#17920b',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   },
   safetyTipsText: {
     fontWeight: 'bold',
-    color: '#21d111',
+    color: '#17920b',
   },
 });
 
