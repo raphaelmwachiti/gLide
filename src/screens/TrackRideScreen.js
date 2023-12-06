@@ -44,12 +44,33 @@ const TrackRideScreen = ({ route, navigation }) => {
           <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate(SafetyScreen)}>
             <Text style={styles.safetyTipsText}>Safety tips</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.rideHistoryButton}
+              onPress={() =>
+                navigation.navigate("RideHistory")
+              }
+            >
+              <Text style={styles.rideHistory}>Your Rides</Text>
+            </TouchableOpacity>
         </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  rideHistoryButton: {
+    backgroundColor: '#21d111', // Choose a color that fits your app's design
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  rideHistory: {
+    color: '#ffffff',
+    fontSize: 16,
+  },
+
   safeArea: {
     flex: 1,
     backgroundColor: '#fff',
@@ -93,11 +114,10 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   titleText: {
-    marginBottom: 10,
-    textAlign: 'center',
-    color: '#333',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#2C3E50",
+    marginBottom: 20,
   },
   profileInfo: {
     flexDirection: 'row',
