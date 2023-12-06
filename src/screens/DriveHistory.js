@@ -135,11 +135,12 @@ const styles = StyleSheet.create({
   location: {
     color: "#888",
     marginTop: 4,
+    
   },
   fare: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#2ecc71",
+    color: "black",
     marginTop: 8,
     paddingRight: 16,
   },
@@ -159,9 +160,10 @@ const styles = StyleSheet.create({
   startRideButton: {
     backgroundColor: "black",
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderRadius: 5,
     marginBottom: 8,
+    marginTop:10,
   },
 
 

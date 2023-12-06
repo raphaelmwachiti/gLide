@@ -142,9 +142,9 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   fare: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#2ecc71",
+    color: "black",
     marginTop: 8,
     paddingRight: 16,
   },
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
+    marginBottom:10,
   },
   chatButtonText: {
     color: '#ffffff',
