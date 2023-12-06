@@ -115,7 +115,7 @@ export default function FindRide({ navigation }) {
               <Text style={[styles.rideInfo, styles.priceText]}>
                 Price: ${ride.price}
               </Text>
-              <Text style={styles.rideInfo}>Departure:{ride.dateTimeString} {ride.timeDate}pm</Text>
+              <Text style={styles.rideInfo}>Scheduled: {ride.timeDate} on {ride.dateTimeString}</Text>
               <Text style={styles.rideInfo}>
                 Passenger Limit: {ride.passengerLimit}
               </Text>

@@ -33,11 +33,11 @@ const TrackRideScreen = ({ route, navigation }) => {
         <View style={styles.profileDetailClmn}> 
             <Text style={styles.profileName}>{ride.from} - {ride.to}</Text>
             <Text style={styles.profileDetail}>Price: ${ride.price}</Text>
-            <Text style={styles.profileDetail}>Time: {ride.time}</Text>
-            <Text style={styles.profileDetail}>Driver: {ride.driver}</Text>
+            <Text style={styles.profileDetail}>Departure: {ride.timeDate} on {ride.dateTimeString} </Text>
+            <Text style={styles.profileDetail}>Estimated Time for Trip: {ride.time}</Text>
             <Text style={styles.profileDetail}>Passenger Limit: {ride.passengerLimit}</Text>
             <Text style={styles.profileDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
-            <Text style={styles.profileDetail}>Status: {ride.status}</Text>
+            <Text style={styles.profileDetail}>Driver: {ride.driver}</Text>
           </View>
         </View>
 
@@ -46,11 +46,9 @@ const TrackRideScreen = ({ route, navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
               style={styles.rideHistoryButton}
-              onPress={() =>
-                navigation.navigate("RideHistory")
-              }
+              onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}
             >
-              <Text style={styles.rideHistory}>Your Rides</Text>
+              <Text style={styles.rideHistory}>Back to Home Screen</Text>
             </TouchableOpacity>
         </View>
     </SafeAreaView>
@@ -116,7 +114,6 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#2C3E50",
     marginBottom: 20,
   },
   profileInfo: {

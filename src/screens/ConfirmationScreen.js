@@ -102,19 +102,14 @@ const ConfirmationScreen = ({ route, navigation }) => {
         <View style={styles.card}>
           <Text style={styles.confirmationText}>Ride Information</Text>
 
-          <Text style={styles.aboutTitle}>Ride Details</Text>
-          <Text style={styles.aboutDetail}>From: {ride.from}</Text>
-          <Text style={styles.aboutDetail}>To: {ride.to}</Text>
-          <Text style={styles.aboutDetail}>Time: {ride.time}</Text>
-          <Text style={styles.aboutDetail}>Driver: {ride.driver}</Text>
+          <Text style={styles.aboutTitle}>Ride Details: {ride.from} - {ride.to}</Text>
           <Text style={styles.aboutDetail}>Price: ${ride.price}</Text>
-          <Text style={styles.aboutDetail}>
-            Passenger Limit: {ride.passengerLimit}
-          </Text>
-          <Text style={styles.aboutDetail}>
-            Allow Stops: {ride.allowStops ? "Yes" : "No"}
-          </Text>
-          <Text style={styles.aboutDetail}>Status: {ride.status}</Text>
+          <Text style={styles.aboutDetail}>Departure: {ride.timeDate} on {ride.dateTimeString} </Text>
+          <Text style={styles.aboutDetail}>Estimated Time for Trip: {ride.time}</Text>
+          <Text style={styles.aboutDetail}>Passenger Limit: {ride.passengerLimit}</Text>
+          <Text style={styles.aboutDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
+          <Text style={styles.aboutDetail}>Driver: {ride.driver}</Text>
+          {/* <Text style={styles.aboutDetail}>Status: {ride.status}</Text> */}
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.trackButton} onPress={confirmRide}>
@@ -170,7 +165,6 @@ const styles = StyleSheet.create({
   confirmationText: {
     marginBottom: 20,
     textAlign: "center",
-    color: "#333",
     fontSize: 24,
     fontWeight: "bold",
   },
