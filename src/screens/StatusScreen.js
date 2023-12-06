@@ -4,8 +4,7 @@ import db from "@react-native-firebase/database";
 
 const StatusScreen = ({ route }) => {
   const { rideId } = route.params;
-  const [eta, setEta] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState("Loading status...");
 
   useEffect(() => {
     const rideRef = db().ref(`/rides/${rideId}`);
@@ -13,11 +12,10 @@ const StatusScreen = ({ route }) => {
     const onRideDataChange = (snapshot) => {
       const rideData = snapshot.val();
 
-      if (rideData) {
-        setEta(rideData.eta);
+      if (rideData && rideData.status) {
         setStatus(rideData.status);
       } else {
-        // Ride doesn't exist
+        // If the ride status is not available
         setStatus("Ride hasn't started yet");
       }
     };
@@ -32,8 +30,7 @@ const StatusScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.statusText}>{status}</Text>
-      {eta !== null && <Text style={styles.etaText}>ETA: {eta} minutes</Text>}
+      <Text style={styles.statusText}>Current Status: {status}</Text>
     </View>
   );
 };
