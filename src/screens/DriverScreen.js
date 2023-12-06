@@ -10,58 +10,66 @@ import {
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import db from "@react-native-firebase/database";
+import { useFocusEffect } from "@react-navigation/native";
 
 const DriverScreen = ({ navigation }) => {
   const [rides, setRides] = useState([]);
 
-  useEffect(() => {
-    const currentUser = auth().currentUser;
-
-    if (currentUser) {
-      const uid = currentUser.uid;
-      const userRef = db().ref(`/users/${uid}/name`);
-
-      userRef
-        .once("value")
-        .then((snapshot) => {
-          const userName = snapshot.val();
-          if (userName) {
-            fetchRides(userName);
-          } else {
-            console.log("User name is not set in the database.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data: ", error);
-        });
-    }
-  }, []);
-
-  const fetchRides = (userName) => {
-    const ridesRef = db().ref("/rides");
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
   
-    ridesRef
-      .orderByChild("driver")
-      .equalTo(userName)
-      .once("value", (snapshot) => {
-        const ridesData = snapshot.val();
-        if (ridesData) {
-          // Filter for rides where the driver is the userName and the status is Open
-          const openRides = Object.keys(ridesData)
-            .filter((key) => ridesData[key].status === "Open")
-            .map((key) => ({
-              id: key,
-              ...ridesData[key],
-            }));
-          setRides(openRides);
-        } else {
-          console.log("No rides found for this driver.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching ride data: ", error);
-      });
-  };
+      const currentUser = auth().currentUser;
+  
+      const fetchRides = (userName) => {
+        const ridesRef = db().ref("/rides");
+  
+        ridesRef
+          .orderByChild("driver")
+          .equalTo(userName)
+          .once("value", (snapshot) => {
+            const ridesData = snapshot.val();
+            if (ridesData && isActive) {
+              const openRides = Object.keys(ridesData)
+                .filter((key) => ridesData[key].status === "Open")
+                .map((key) => ({
+                  id: key,
+                  ...ridesData[key],
+                }));
+              setRides(openRides);
+            } else {
+              console.log("No rides found for this driver.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching ride data: ", error);
+          });
+      };
+  
+      if (currentUser) {
+        const uid = currentUser.uid;
+        const userRef = db().ref(`/users/${uid}/name`);
+  
+        userRef
+          .once("value")
+          .then((snapshot) => {
+            const userName = snapshot.val();
+            if (userName) {
+              fetchRides(userName);
+            } else {
+              console.log("User name is not set in the database.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user data: ", error);
+          });
+      }
+  
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
