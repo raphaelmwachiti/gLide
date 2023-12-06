@@ -27,7 +27,7 @@ const TrackRideScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.card}>
-        <Text style={styles.titleText}>Ride Details</Text>
+        <Text style={styles.titleText}>Thank you, you're ride has been confirmed! </Text>
 
         <View style={styles.profileInfo}> 
         <View style={styles.profileDetailClmn}> 
@@ -40,23 +40,6 @@ const TrackRideScreen = ({ route, navigation }) => {
             <Text style={styles.profileDetail}>Status: {ride.status}</Text>
           </View>
         </View>
-
-        <Text style={styles.aboutDetail}> - Be mindful of your ride </Text>
-        <Text style={styles.aboutDetail}> - Call 911 us you feel unsafe and contact support</Text>
-       
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
-              <Text style={styles.buttonText}>Cancel Glide (5:03)</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.trackButton} onPress={() => navigation.navigate('ChatScreen')}>
-              <Text style={styles.buttonText}>Talk to driver</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.shareButton} onPress={() => navigation.navigate('GlideDriveTabs', { screen: 'Glide' })}>
-            <Text style={styles.buttonText}>Share live location and ride details</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity style={styles.safetyTipsButton} onPress={() => navigation.navigate(SafetyScreen)}>
             <Text style={styles.safetyTipsText}>Safety tips</Text>
