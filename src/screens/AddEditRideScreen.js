@@ -92,12 +92,14 @@ const AddEditRideScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="From"
+          placeholderTextColor="#888"
           value={from}
           onChangeText={setFrom}
         />
         <TextInput
           style={styles.input}
           placeholder="To"
+          placeholderTextColor="#888"
           value={to}
           onChangeText={setTo}
         />
@@ -151,7 +153,8 @@ const AddEditRideScreen = ({ navigation }) => {
 
         <TextInput
           style={styles.input}
-          placeholder="Time (HH)"
+          placeholder="Departure Time (24h format)"
+          placeholderTextColor="#888"
           value={timeDate}
           onChangeText={setTime}
         />
@@ -159,6 +162,7 @@ const AddEditRideScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Duration (hours)"
+          placeholderTextColor="#888"
           keyboardType="numeric"
           value={time}
           onChangeText={(text) => setDuration(text)}
@@ -167,6 +171,7 @@ const AddEditRideScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Passenger limit"
+          placeholderTextColor="#888"
           keyboardType="numeric"
           value={passengerLimit}
           onChangeText={(text) =>
@@ -176,7 +181,8 @@ const AddEditRideScreen = ({ navigation }) => {
 
         <TextInput
           style={styles.input}
-          placeholder="Price"
+          placeholder="Price (CAD)"
+          placeholderTextColor="#888"
           keyboardType="numeric"
           value={price}
           onChangeText={(text) => setPrice(text)}
@@ -207,7 +213,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#888",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,

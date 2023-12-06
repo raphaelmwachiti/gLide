@@ -105,7 +105,7 @@ const ConfirmationScreen = ({ route, navigation }) => {
           <Text style={styles.aboutTitle}>Ride Details: {ride.from} - {ride.to}</Text>
           <Text style={styles.aboutDetail}>Price: ${ride.price}</Text>
           <Text style={styles.aboutDetail}>Departure: {ride.timeDate} on {ride.dateTimeString} </Text>
-          <Text style={styles.aboutDetail}>Estimated Time for Trip: {ride.time}</Text>
+          <Text style={styles.aboutDetail}>Estimated Duration: {ride.time}</Text>
           <Text style={styles.aboutDetail}>Passenger Limit: {ride.passengerLimit}</Text>
           <Text style={styles.aboutDetail}>Allow Stops: {ride.allowStops ? "Yes" : "No"}</Text>
           <Text style={styles.aboutDetail}>Driver: {ride.driver}</Text>
